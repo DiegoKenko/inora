@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "605643721092",
+    "firebase_url": "https://inora-79f33-default-rtdb.firebaseio.com",
+    "project_id": "inora-79f33",
+    "storage_bucket": "inora-79f33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605643721092:android:4145a59c24b9cd7b5cb5d1",
+        "android_client_info": {
+          "package_name": "com.example.inora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605643721092-k93sncgpsh1nj6larfj9auqkk7goa2r0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHQs7mYWt-rW4uN52eMTX4cRw0tmaOHOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605643721092-k93sncgpsh1nj6larfj9auqkk7goa2r0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "605643721092-4ij5j2iv6et6eb9sph9k1djphov8om3i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.inora"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
