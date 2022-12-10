@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inora/styles.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -31,67 +32,7 @@ class _InoraState extends State<Inora> {
       title: 'INORA',
       theme: ThemeData(
         fontFamily: GoogleFonts.raleway().fontFamily,
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          headline2: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          headline3: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          headline4: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          headline5: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          headline6: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          subtitle1: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          subtitle2: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          bodyText1: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          bodyText2: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          button: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          caption: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-          overline: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        textTheme: TextTheme(),
         primarySwatch: MaterialColor(0xFFF2650A, {
           50: Color(0x22F2650A),
           100: Color(0x44F2650A),
@@ -104,6 +45,7 @@ class _InoraState extends State<Inora> {
           800: Color(0xDDF2650A),
           900: Color(0xFFF2650A),
         }),
+        cardColor: Colors.white,
       ),
       home: const Home(),
     );
@@ -128,6 +70,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   List<bool> hover = [false, false, false];
   Image image = const Image(image: NetworkImage(''));
+  final double itemMaxWidth = 600;
 
   @override
   void initState() {
@@ -137,23 +80,18 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        child: header(),
+        preferredSize: Size.fromHeight(100),
+      ),
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: CustomScrollView(slivers: [
-          SliverAppBar(
-            pinned: true,
-            collapsedHeight: MediaQuery.of(context).size.height * 0.1,
-            expandedHeight: MediaQuery.of(context).size.height * 0.4,
-            backgroundColor: Colors.white,
-            flexibleSpace: header(),
-          ),
-          SliverPinnedHeader(
-            child: atividades(context),
-          ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                atividades(context),
                 parceiros(context),
                 footer(context),
               ],
@@ -166,6 +104,16 @@ class HomeState extends State<Home> {
 
   Widget footer(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Theme.of(context).primaryColor.withOpacity(0.6),
+            Theme.of(context).primaryColor.withOpacity(0.2),
+          ],
+        ),
+      ),
       height: MediaQuery.of(context).size.height * 0.1,
       child: Opacity(
         opacity: 0.7,
@@ -173,20 +121,13 @@ class HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Desenvolvido por ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
+                style: kTextStyleSubTitleBlack,
               ),
-              const Text(
+              Text(
                 'Inora',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: kTextStyleSubTitleBlack,
               )
             ],
           ),
@@ -196,14 +137,15 @@ class HomeState extends State<Home> {
   }
 
   Widget parceiros(BuildContext context) {
-    return ClipPath(
-      clipper: ParceirosClipper(),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Container(
-        color: Colors.white,
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).size.height * 0.15,
         ),
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.5,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -218,11 +160,15 @@ class HomeState extends State<Home> {
             ),
             CarouselSlider(
               options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height * 0.3),
+                autoPlay: true,
+                autoPlayAnimationDuration: Duration(milliseconds: 500),
+                height: MediaQuery.of(context).size.height * 0.15,
+              ),
               items: [1, 2, 3, 4, 5].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.05,
@@ -242,7 +188,9 @@ class HomeState extends State<Home> {
                       child: Center(
                         child: Text(
                           'EMPRESA $i',
-                          style: TextStyle(fontSize: 16.0),
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
                         ),
                       ),
                     );
@@ -256,105 +204,180 @@ class HomeState extends State<Home> {
     );
   }
 
+  Widget cardAtividade(BuildContext context, Widget child) {
+    return Card(
+      shadowColor: Theme.of(context).primaryColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 20,
+      child: Container(
+        child: child,
+      ),
+    );
+  }
+
   Widget atividades(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
-      width: double.infinity,
-      child: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: Center(
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'O QUE PODEMOS FAZER POR VOCÊ:',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+    return ClipPath(
+      clipper: AtividadesClipper(),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.6,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.05,
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+              ),
+              margin: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.05,
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+              ),
+              child: Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'O QUE PODEMOS FAZER POR VOCÊ:',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'DESENVOLVIMENTO DE WEBSITES',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic,
+            Center(
+              child: Flex(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                direction: MediaQuery.of(context).size.width > itemMaxWidth
+                    ? Axis.horizontal
+                    : Axis.vertical,
+                children: [
+                  cardAtividade(
+                    context,
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.05,
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: 'DESENVOLVIMENTO DE ',
+                                children: [
+                                  TextSpan(
+                                      text: 'WEBSITES',
+                                      style: kTextStyleTitleOrange)
+                                ],
+                                style: kTextStyleTitleBlack,
                               ),
-                              text:
-                                  'Tenha um site profissional para sua empresa.',
                             ),
-                          ),
-                        ],
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: kTextStyleSubTitleBlack,
+                                text:
+                                    'Tenha um site profissional para sua empresa.',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'DESENVOLVIMENTO DE APLICATIVOS MÓVEIS',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic,
+                  cardAtividade(
+                    context,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.05,
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: 'DESENVOLVIMENTO DE ',
+                                children: [
+                                  TextSpan(
+                                    text: 'APPS',
+                                    style: kTextStyleTitleOrange,
+                                  )
+                                ],
+                                style: kTextStyleTitleBlack,
                               ),
-                              text:
-                                  'A solução dos seus problemas na palma da sua mão.',
                             ),
-                          ),
-                        ],
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: kTextStyleSubTitleBlack,
+                                text:
+                                    'A solução dos seus problemas na palma da sua mão.',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  cardAtividade(
+                    context,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.05,
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: 'TOTVS - PROTHEUS',
+                                  style: kTextStyleTitleBlack),
+                            ),
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: 'Soluções personalizadas para o\n',
+                                      style: kTextStyleSubTitleBlack),
+                                  TextSpan(
+                                      text: ' ERP PROTHEUS ',
+                                      style: kTextStyleSubTitleorange),
+                                  TextSpan(
+                                    style: kTextStyleSubTitleBlack,
+                                    text: 'da sua empresa.',
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -367,16 +390,7 @@ class HomeState extends State<Home> {
         children: [
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.orange[200]!,
-                    Colors.orange,
-                  ],
-                ),
-              ),
+              color: Colors.blue,
             ),
           ),
           Positioned(
@@ -386,78 +400,73 @@ class HomeState extends State<Home> {
           ),
           Positioned(
             left: MediaQuery.of(context).size.width * 0.25,
-            top: MediaQuery.of(context).size.height * 0.25,
+            top: MediaQuery.of(context).size.height * 0.1,
             child: RichText(
               text: const TextSpan(
                 style: TextStyle(
                   fontSize: 50,
                   color: Colors.black,
                 ),
-                text: 'UMA MENSAGEM BACANA AQUI',
+                text: 'MENSAGEM',
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: Positioned(
-                top: 20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InkWell(
-                        onHover: ((value) {
-                          setState(() {
-                            hover[0] = value;
-                          });
-                        }),
-                        child: Text(
-                          'INICIO',
-                          style: TextStyle(
-                            color: hover[0] ? Colors.white : Colors.black,
-                          ),
-                        ),
+          Positioned(
+            right: MediaQuery.of(context).size.width * 0.05,
+            top: MediaQuery.of(context).size.height * 0.05,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InkWell(
+                    onHover: ((value) {
+                      setState(() {
+                        hover[0] = value;
+                      });
+                    }),
+                    child: Text(
+                      'INICIO',
+                      style: TextStyle(
+                        color: hover[0] ? Colors.white : Colors.black,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InkWell(
-                        onHover: ((value) {
-                          setState(() {
-                            hover[1] = value;
-                          });
-                        }),
-                        child: Text(
-                          'CONTATO',
-                          style: TextStyle(
-                            color: hover[1] ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InkWell(
-                        onHover: ((value) {
-                          setState(() {
-                            hover[2] = value;
-                          });
-                        }),
-                        child: Text(
-                          'ÁREA DO CLIENTE',
-                          style: TextStyle(
-                            color: hover[2] ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InkWell(
+                    onHover: ((value) {
+                      setState(() {
+                        hover[1] = value;
+                      });
+                    }),
+                    child: Text(
+                      'CONTATO',
+                      style: TextStyle(
+                        color: hover[1] ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InkWell(
+                    onHover: ((value) {
+                      setState(() {
+                        hover[2] = value;
+                      });
+                    }),
+                    child: Text(
+                      'ÁREA DO CLIENTE',
+                      style: TextStyle(
+                        color: hover[2] ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -508,8 +517,8 @@ class ParceirosClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path0 = Path();
     path0.lineTo(0, size.height);
-    path0.lineTo(size.width, size.height * 0.8657143);
-    path0.lineTo(size.width, size.height * 0.1500000);
+    path0.lineTo(size.width, size.height * 0.8);
+    path0.lineTo(size.width, 0);
     path0.close();
     return path0;
   }
@@ -519,6 +528,25 @@ class ParceirosClipper extends CustomClipper<Path> {
 }
 
 class HeaderClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    return Path()
+      ..lineTo(0, size.height * 0.8)
+      ..quadraticBezierTo(
+        size.width * 0.5,
+        size.height,
+        size.width,
+        size.height * 0.8,
+      )
+      ..lineTo(size.width, 0)
+      ..close();
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+class AtividadesClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     return Path()
