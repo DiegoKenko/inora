@@ -1,11 +1,15 @@
-// ignore_for_file: prefer_const_constructors, unused_import, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, unused_import, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers, sort_child_properties_last, unnecessary_import
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inora/atividades.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inora/footer.dart';
+import 'package:inora/header.dart';
+import 'package:inora/parceiros.dart';
 import 'package:inora/styles.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -30,6 +34,7 @@ class _InoraState extends State<Inora> {
     return MaterialApp(
       scrollBehavior: MyScrollBehavior(),
       title: 'INORA',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: GoogleFonts.raleway().fontFamily,
         textTheme: TextTheme(),
@@ -71,6 +76,7 @@ class HomeState extends State<Home> {
   List<bool> hover = [false, false, false];
   Image image = const Image(image: NetworkImage(''));
   final double itemMaxWidth = 600;
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
@@ -79,488 +85,197 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var responsiveHeight = MediaQuery.of(context).size.height;
+    var responsiveWidth = MediaQuery.of(context).size.width;
+    bool ratioVertical = responsiveHeight > responsiveWidth;
     return Scaffold(
-      appBar: PreferredSize(
-        child: header(),
-        preferredSize: Size.fromHeight(100),
+      drawer: ratioVertical
+          ? Drawer(
+              backgroundColor: kPrimaryColor,
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  ListTile(
+                    title: Text('Página Inicial'),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text('Contato'),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text('Área do Cliente'),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            )
+          : Drawer(),
+      appBar: AppBar(
+        leading: ratioVertical
+            ? Padding(
+                padding: EdgeInsets.only(left: responsiveWidth * 0.025),
+                child: IconButton(
+                  onPressed: () {
+                    _key.currentState!.openDrawer();
+                  },
+                  icon: Icon(
+                    Icons.menu,
+                    size: 30,
+                    color: kPrimaryColor,
+                  ),
+                ),
+              )
+            : Container(),
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(
+            MediaQuery.of(context).size.height * 0.025,
+          ),
+          child: Container(
+            height: 2,
+            color: Colors.orange,
+          ),
+        ),
+        elevation: 0,
+        title: Text(
+          'INORA',
+          style: kTextStyleTitleOrange,
+        ),
+        actions: [
+          !ratioVertical
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Página Inicial',
+                          style: kTextStyleSubTitleorange,
+                        ),
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Contato',
+                          style: kTextStyleSubTitleorange,
+                        ),
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Área do Cliente',
+                          style: kTextStyleSubTitleorange,
+                        ),
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                      ),
+                    ],
+                  ))
+              : Container()
+        ],
       ),
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       body: SafeArea(
-        child: CustomScrollView(slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                atividades(context),
-                parceiros(context),
-                footer(context),
-              ],
-            ),
-          ),
-        ]),
-      ),
-    );
-  }
-
-  Widget footer(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Theme.of(context).primaryColor.withOpacity(0.6),
-            Theme.of(context).primaryColor.withOpacity(0.2),
-          ],
-        ),
-      ),
-      height: MediaQuery.of(context).size.height * 0.1,
-      child: Opacity(
-        opacity: 0.7,
-        child: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Desenvolvido por ',
-                style: kTextStyleSubTitleBlack,
-              ),
-              Text(
-                'Inora',
-                style: kTextStyleSubTitleBlack,
-              )
+              InoraHeader(),
+              InoraAtividades(),
+              Divider(),
+              InoraParceiros(),
+              Divider(),
+              InoraFooter(),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget parceiros(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+class InoraDivider extends StatefulWidget {
+  const InoraDivider({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<InoraDivider> createState() => _InoraDividerState();
+}
+
+class _InoraDividerState extends State<InoraDivider>
+    with SingleTickerProviderStateMixin {
+  final Duration duration = const Duration(seconds: 2);
+  late Animation _colorTween;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        seconds: 30,
       ),
-      child: Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height * 0.15,
-        ),
-        height: MediaQuery.of(context).size.height * 0.5,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
-              child: const Center(
-                child: Text(
-                  'NOSSOS PARCEIROS',
-                ),
-              ),
-            ),
-            CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: true,
-                autoPlayAnimationDuration: Duration(milliseconds: 500),
-                height: MediaQuery.of(context).size.height * 0.15,
-              ),
-              items: [1, 2, 3, 4, 5].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 2.0,
-                          ),
-                          bottom: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'EMPRESA $i',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      ),
+    )..repeat();
+
+    _colorTween = ColorTween(
+      begin: kPrimaryColor,
+      end: kPrimaryColor.withOpacity(0.1),
+    ).animate(
+      _animationController,
     );
+
+    super.initState();
   }
 
-  Widget cardAtividade(BuildContext context, Widget child) {
-    return Card(
-      shadowColor: Theme.of(context).primaryColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 20,
-      child: Container(
-        child: child,
-      ),
-    );
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
-  Widget atividades(BuildContext context) {
-    return ClipPath(
-      clipper: AtividadesClipper(),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.6,
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.05,
-                horizontal: MediaQuery.of(context).size.width * 0.05,
-              ),
-              margin: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.05,
-                horizontal: MediaQuery.of(context).size.width * 0.05,
-              ),
-              child: Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: 'O QUE PODEMOS FAZER POR VOCÊ:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Flex(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                direction: MediaQuery.of(context).size.width > itemMaxWidth
-                    ? Axis.horizontal
-                    : Axis.vertical,
-                children: [
-                  cardAtividade(
-                    context,
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.05,
-                        horizontal: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: 'DESENVOLVIMENTO DE ',
-                                children: [
-                                  TextSpan(
-                                      text: 'WEBSITES',
-                                      style: kTextStyleTitleOrange)
-                                ],
-                                style: kTextStyleTitleBlack,
-                              ),
-                            ),
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                style: kTextStyleSubTitleBlack,
-                                text:
-                                    'Tenha um site profissional para sua empresa.',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  cardAtividade(
-                    context,
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.05,
-                        horizontal: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: 'DESENVOLVIMENTO DE ',
-                                children: [
-                                  TextSpan(
-                                    text: 'APPS',
-                                    style: kTextStyleTitleOrange,
-                                  )
-                                ],
-                                style: kTextStyleTitleBlack,
-                              ),
-                            ),
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                style: kTextStyleSubTitleBlack,
-                                text:
-                                    'A solução dos seus problemas na palma da sua mão.',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  cardAtividade(
-                    context,
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.05,
-                        horizontal: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                  text: 'TOTVS - PROTHEUS',
-                                  style: kTextStyleTitleBlack),
-                            ),
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: 'Soluções personalizadas para o\n',
-                                      style: kTextStyleSubTitleBlack),
-                                  TextSpan(
-                                      text: ' ERP PROTHEUS ',
-                                      style: kTextStyleSubTitleorange),
-                                  TextSpan(
-                                    style: kTextStyleSubTitleBlack,
-                                    text: 'da sua empresa.',
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget header() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              color: Colors.blue,
-            ),
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _colorTween,
+      builder: (context, child) {
+        return Container(
+          margin: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.025,
           ),
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.05,
-            top: MediaQuery.of(context).size.height * 0.05,
-            child: Text('INORA'),
-          ),
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.25,
-            top: MediaQuery.of(context).size.height * 0.1,
-            child: RichText(
-              text: const TextSpan(
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.black,
-                ),
-                text: 'MENSAGEM',
-              ),
-            ),
-          ),
-          Positioned(
-            right: MediaQuery.of(context).size.width * 0.05,
-            top: MediaQuery.of(context).size.height * 0.05,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InkWell(
-                    onHover: ((value) {
-                      setState(() {
-                        hover[0] = value;
-                      });
-                    }),
-                    child: Text(
-                      'INICIO',
-                      style: TextStyle(
-                        color: hover[0] ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InkWell(
-                    onHover: ((value) {
-                      setState(() {
-                        hover[1] = value;
-                      });
-                    }),
-                    child: Text(
-                      'CONTATO',
-                      style: TextStyle(
-                        color: hover[1] ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InkWell(
-                    onHover: ((value) {
-                      setState(() {
-                        hover[2] = value;
-                      });
-                    }),
-                    child: Text(
-                      'ÁREA DO CLIENTE',
-                      style: TextStyle(
-                        color: hover[2] ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+          height: MediaQuery.of(context).size.height * 0.005,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                _colorTween.value,
+                Colors.white,
               ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
-}
-
-class FooterClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path0 = Path();
-    path0.moveTo(0, size.height * 0.4271429);
-    path0.quadraticBezierTo(size.width * 0.1031250, size.height * 0.5696429,
-        size.width * 0.2108333, size.height * 0.4285714);
-    path0.cubicTo(
-        size.width * 0.2672917,
-        size.height * 0.3489286,
-        size.width * 0.3225000,
-        size.height * 0.3146429,
-        size.width * 0.4166667,
-        size.height * 0.4300000);
-    path0.cubicTo(
-        size.width * 0.5258333,
-        size.height * 0.5560714,
-        size.width * 0.5289583,
-        size.height * 0.5517857,
-        size.width * 0.6241667,
-        size.height * 0.4285714);
-    path0.cubicTo(
-        size.width * 0.6958333,
-        size.height * 0.3225000,
-        size.width * 0.7591667,
-        size.height * 0.3175000,
-        size.width * 0.8341667,
-        size.height * 0.4328571);
-    path0.quadraticBezierTo(size.width * 0.9202083, size.height * 0.5785714,
-        size.width * 0.9983333, size.height * 0.4271429);
-    return path0;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class ParceirosClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path0 = Path();
-    path0.lineTo(0, size.height);
-    path0.lineTo(size.width, size.height * 0.8);
-    path0.lineTo(size.width, 0);
-    path0.close();
-    return path0;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class HeaderClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    return Path()
-      ..lineTo(0, size.height * 0.8)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height,
-        size.width,
-        size.height * 0.8,
-      )
-      ..lineTo(size.width, 0)
-      ..close();
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
-}
-
-class AtividadesClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    return Path()
-      ..lineTo(0, size.height * 0.8)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height,
-        size.width,
-        size.height * 0.8,
-      )
-      ..lineTo(size.width, 0)
-      ..close();
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
