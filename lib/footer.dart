@@ -19,6 +19,14 @@ class _InoraFooterState extends State<InoraFooter> {
       width: double.infinity,
       height: responsiveHeight * 0.07,
       color: kPrimaryColor,
+      child: Center(
+        child: Text(
+          '© 2022 Inora Softwares Ltda.',
+          style: ratioVertical
+              ? kTextStyleFooterBlackVertical
+              : kTextStyleFooterBlack,
+        ),
+      ),
     );
   }
 }

@@ -44,14 +44,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: "AIzaSyBeUme83r_SZG6acFBrwUY1Zyfv0bA0ZYk",
-    authDomain: "inora-79f33.firebaseapp.com",
-    databaseURL: "https://inora-79f33-default-rtdb.firebaseio.com",
-    projectId: "inora-79f33",
-    storageBucket: "inora-79f33.appspot.com",
-    messagingSenderId: "605643721092",
-    appId: "1:605643721092:web:f7cd3fe8d70d03f85cb5d1",
-    measurementId: "G-MDLBSQD9D8",
+  apiKey: "AIzaSyBeUme83r_SZG6acFBrwUY1Zyfv0bA0ZYk",
+  authDomain: "inora-79f33.firebaseapp.com",
+  databaseURL: "https://inora-79f33-default-rtdb.firebaseio.com",
+  projectId: "inora-79f33",
+  storageBucket: "inora-79f33.appspot.com",
+  messagingSenderId: "605643721092",
+  appId: "1:605643721092:web:f7cd3fe8d70d03f85cb5d1",
+  measurementId: "G-MDLBSQD9D8"
   );
 
   static const FirebaseOptions android = FirebaseOptions(

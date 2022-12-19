@@ -24,6 +24,7 @@ class InoraAtividadesState extends State<InoraAtividades> {
       width: double.infinity,
       padding: EdgeInsets.symmetric(
         vertical: ratioVertical ? responsiveHeight * 0.05 : 0.15,
+        horizontal: ratioVertical ? 0.1 : responsiveWidth * 0.1,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -38,25 +39,39 @@ class InoraAtividadesState extends State<InoraAtividades> {
       child: Column(
         children: atividades
             .map(
-              (e) => cardAtividades(
-                ratioVertical,
-                responsiveWidth,
-                responsiveHeight,
-                e,
-              ),
+              (e) => CardAtividades(
+                  ratioVertical: ratioVertical,
+                  responsiveWidth: responsiveWidth,
+                  responsiveHeight: responsiveHeight,
+                  atividades: e),
             )
             .toList(),
       ),
     );
   }
+}
 
-  Widget cardAtividades(bool ratioVertical, double responsiveWidth,
-      double responsiveHeight, List<String> atividades) {
+class CardAtividades extends StatelessWidget {
+  const CardAtividades({
+    Key? key,
+    required this.ratioVertical,
+    required this.responsiveWidth,
+    required this.responsiveHeight,
+    required this.atividades,
+  }) : super(key: key);
+
+  final bool ratioVertical;
+  final double responsiveWidth;
+  final double responsiveHeight;
+  final Map<String, dynamic> atividades;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: ratioVertical ? 0.1 : responsiveWidth * 0.1,
+        horizontal: ratioVertical ? 0.02 : responsiveWidth * 0.1,
         vertical:
-            ratioVertical ? responsiveHeight * 0.05 : responsiveWidth * 0.02,
+            ratioVertical ? responsiveHeight * 0.02 : responsiveWidth * 0.02,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +81,7 @@ class InoraAtividadesState extends State<InoraAtividades> {
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
             children: [
               Image.asset(
-                atividades[2],
+                atividades['imagem'],
                 width: ratioVertical
                     ? responsiveWidth * 0.5
                     : responsiveWidth * 0.2,
@@ -75,28 +90,103 @@ class InoraAtividadesState extends State<InoraAtividades> {
                     : responsiveHeight * 0.15,
               ),
               ratioVertical
-                  ? Text(
-                      atividades[0],
-                      style: kTextStyleSubTitleBlack,
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                        top: responsiveHeight * 0.01,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 30,
+                              horizontal: responsiveWidth * 0.08,
+                            ),
+                            child: Text(
+                              atividades['nome'],
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                              style: ratioVertical
+                                  ? kTextStyleTitleBlackVertical
+                                  : kTextStyleTitleBlackLarge,
+                            ),
+                          ),
+                          Topicos(topicos: atividades['topicos']),
+                        ],
+                      ),
                     )
                   : Expanded(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            atividades[0],
-                            style: kTextStyleTitleBlackLarge,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 30,
+                              horizontal: responsiveWidth * 0.03,
+                            ),
+                            child: Text(
+                              atividades['nome'],
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: kTextStyleTitleBlackLarge,
+                            ),
                           ),
-                          Text(
-                            atividades[1],
-                            style: kTextStyleTitleBlackLarge,
-                          ),
+                          Topicos(topicos: atividades['topicos']),
                         ],
                       ),
                     ),
             ],
-          )
+          ),
         ],
       ),
+    );
+  }
+}
+
+class Topicos extends StatelessWidget {
+  const Topicos({
+    Key? key,
+    required this.topicos,
+  }) : super(key: key);
+
+  final List<String> topicos;
+
+  @override
+  Widget build(BuildContext context) {
+    var responsiveWidth = MediaQuery.of(context).size.width;
+    var responsiveHeight = MediaQuery.of(context).size.height;
+    bool ratioVertical = responsiveHeight > responsiveWidth;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: topicos.map(
+        (String e) {
+          return Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: kPrimaryColor,
+                    size: ratioVertical ? 28 : 40,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    e,
+                    style: ratioVertical ? kTextTopicVertical : kTextTopic,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }

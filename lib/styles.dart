@@ -8,33 +8,92 @@ final kWhite = Colors.white;
 
 final kTextStyleSubTitleBlack = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
-  fontSize: 20,
+  fontSize: 25,
   fontStyle: FontStyle.italic,
   color: Colors.black,
 );
 
-final kTextStyleSubTitleorange = TextStyle(
+final kTextStyleSubTitleOrange = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
-  fontSize: 20,
+  fontSize: 25,
   fontStyle: FontStyle.italic,
   color: kPrimaryColor,
 );
 
 final kTextStyleTitleBlack = TextStyle(
-  fontFamily: GoogleFonts.raleway().fontFamily,
-  fontSize: 30,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-);
+    fontFamily: GoogleFonts.raleway().fontFamily,
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    letterSpacing: 4);
+
+final kTextStyleTitleBlackVertical = TextStyle(
+    fontFamily: GoogleFonts.raleway().fontFamily,
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    letterSpacing: 4);
+
+final kTextStyleTitleOrange = TextStyle(
+    fontFamily: GoogleFonts.raleway().fontFamily,
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: kPrimaryColor,
+    letterSpacing: 4);
+final kTextStyleTitleOrangeVertical = TextStyle(
+    fontFamily: GoogleFonts.raleway().fontFamily,
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: kPrimaryColor,
+    letterSpacing: 4);
 final kTextStyleTitleBlackLarge = TextStyle(
   fontFamily: GoogleFonts.karla().fontFamily,
   fontSize: 40,
+  letterSpacing: 3,
   color: Colors.black,
 );
 
-final kTextStyleTitleOrange = TextStyle(
+final kTextStyleTitleOrangeLarge = TextStyle(
+  fontFamily: GoogleFonts.karla().fontFamily,
+  fontSize: 40,
+  letterSpacing: 3,
+  color: kPrimaryColor,
+);
+
+final kTextLabelContact = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
-  fontSize: 30,
-  fontWeight: FontWeight.bold,
+  fontSize: 22,
+  color: Colors.black,
+);
+
+final kTextTopic = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 28,
+  fontStyle: FontStyle.italic,
+  color: Colors.black,
+);
+final kTextTopicVertical = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 20,
+  fontStyle: FontStyle.italic,
+  color: Colors.black,
+);
+final kTextStyleFooterBlackVertical = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 18,
+  fontStyle: FontStyle.italic,
+  color: Colors.black,
+);
+final kTextStyleFooterBlack = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 20,
+  fontStyle: FontStyle.italic,
+  color: Colors.black,
+);
+
+final kTextStyleObsOrange = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 15,
+  fontStyle: FontStyle.italic,
   color: kPrimaryColor,
 );

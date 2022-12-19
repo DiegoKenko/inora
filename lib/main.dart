@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inora/atividades.dart';
+import 'package:inora/contato.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,7 @@ import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/parceiros.dart';
 import 'package:inora/styles.dart';
+import 'package:inora/trabalhe_conosco.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -89,111 +91,53 @@ class HomeState extends State<Home> {
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
     return Scaffold(
-      drawer: ratioVertical
-          ? Drawer(
-              backgroundColor: kPrimaryColor,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  ListTile(
-                    title: Text('Página Inicial'),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text('Contato'),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text('Área do Cliente'),
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            )
-          : Drawer(),
       appBar: AppBar(
-        leading: ratioVertical
-            ? Padding(
-                padding: EdgeInsets.only(left: responsiveWidth * 0.025),
-                child: IconButton(
-                  onPressed: () {
-                    _key.currentState!.openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    size: 30,
-                    color: kPrimaryColor,
-                  ),
+        backgroundColor: kBlack,
+        centerTitle: ratioVertical ? false : true,
+        title: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 60),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'INORA',
+                style: kTextStyleTitleOrangeLarge,
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: responsiveWidth * 0.01),
+                child: Text(
+                  ' ( em construção ) ',
+                  style: kTextStyleObsOrange,
                 ),
-              )
-            : Container(),
-        backgroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30),
+              ),
+            ],
           ),
-        ),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(
-            MediaQuery.of(context).size.height * 0.025,
-          ),
-          child: Container(
-            height: 2,
-            color: Colors.orange,
-          ),
-        ),
-        elevation: 0,
-        title: Text(
-          'INORA',
-          style: kTextStyleTitleOrange,
         ),
         actions: [
           !ratioVertical
               ? Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: responsiveWidth * 0.1),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Página Inicial',
-                          style: kTextStyleSubTitleorange,
+                      /*  GestureDetector(
+                        onTap: () {},
+                        child: Center(
+                          child: Text('Área do Cliente',
+                              style: kTextStyleSubTitleOrange),
                         ),
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Contato',
-                          style: kTextStyleSubTitleorange,
-                        ),
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Área do Cliente',
-                          style: kTextStyleSubTitleorange,
-                        ),
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                      ),
+                      ), */
                     ],
-                  ))
+                  ),
+                )
               : Container()
         ],
       ),
       backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -201,9 +145,7 @@ class HomeState extends State<Home> {
             children: [
               InoraHeader(),
               InoraAtividades(),
-              Divider(),
-              InoraParceiros(),
-              Divider(),
+              InoraTrabalheConosco(),
               InoraFooter(),
             ],
           ),
