@@ -170,7 +170,7 @@ class InoraParceirosPreview extends StatelessWidget {
             child: Center(
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/parceiros');
+                  Navigator.pushReplacementNamed(context, '/parceiros');
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(

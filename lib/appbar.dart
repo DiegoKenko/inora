@@ -15,6 +15,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
     return AppBar(
+      automaticallyImplyLeading: ratioVertical ? true : false,
       backgroundColor: kBlack,
       centerTitle: ratioVertical ? false : true,
       title: Padding(
@@ -26,7 +27,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/');
               },
               child: Text(
                 'INORA',
@@ -57,7 +58,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/contato');
+                          Navigator.pushReplacementNamed(context, '/contato');
                         },
                         child: Center(
                           child: Text('Contato',
@@ -70,7 +71,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/parceiros');
+                          Navigator.pushReplacementNamed(context, '/parceiros');
                         },
                         child: Center(
                           child: Text('Parceiros',
@@ -83,7 +84,8 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/trabalhe_conosco');
+                          Navigator.pushReplacementNamed(
+                              context, '/trabalhe_conosco');
                         },
                         child: Center(
                           child: Text('Trabalhe conosco',

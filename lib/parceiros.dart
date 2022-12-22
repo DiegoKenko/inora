@@ -144,7 +144,7 @@ class CardParceiro extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'xxx',
+           '',
             style: kTextStyleSubTitleBlack,
           ),
         ],

@@ -42,20 +42,3 @@ List<Map<String, dynamic>> atividades = [
   },
 ];
 
-/* List atividades = [
-  [
-    'DESENVOLVIMENTO DE APP',
-    '',
-    'assets/app.png',
-  ],
-  [
-    'DESENVOLVIMENTO DE WEBSITE',
-    '',
-    'assets/website.png',
-  ],
-  [
-    'SOLUÇÕES ERP PROTHEUS',
-    '',
-    'assets/protheus.png',
-  ],
-]; */
