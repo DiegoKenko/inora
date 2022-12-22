@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inora/appbar.dart';
 import 'package:inora/atividades.dart';
 import 'package:inora/contato.dart';
 import 'package:inora/firebase_options.dart';
@@ -37,6 +38,13 @@ class _InoraState extends State<Inora> {
       scrollBehavior: MyScrollBehavior(),
       title: 'INORA',
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => Home(),
+        '/contato': (BuildContext context) => InoraContato(),
+        '/parceiros': (BuildContext context) => InoraParceiros(),
+        '/trabalhe_conosco': (BuildContext context) => InoraTrabalheConosco(),
+      },
       theme: ThemeData(
         fontFamily: GoogleFonts.raleway().fontFamily,
         textTheme: TextTheme(),
@@ -54,7 +62,6 @@ class _InoraState extends State<Inora> {
         }),
         cardColor: Colors.white,
       ),
-      home: const Home(),
     );
   }
 }
@@ -91,52 +98,8 @@ class HomeState extends State<Home> {
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kBlack,
-        centerTitle: ratioVertical ? false : true,
-        title: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 60),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'INORA',
-                style: kTextStyleTitleOrangeLarge,
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: responsiveWidth * 0.01),
-                child: Text(
-                  ' ( em construção ) ',
-                  style: kTextStyleObsOrange,
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          !ratioVertical
-              ? Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: responsiveWidth * 0.1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      /*  GestureDetector(
-                        onTap: () {},
-                        child: Center(
-                          child: Text('Área do Cliente',
-                              style: kTextStyleSubTitleOrange),
-                        ),
-                      ), */
-                    ],
-                  ),
-                )
-              : Container()
-        ],
-      ),
+      drawer: ratioVertical ? Drawer() : null,
+      appBar: InoraAppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -145,11 +108,88 @@ class HomeState extends State<Home> {
             children: [
               InoraHeader(),
               InoraAtividades(),
-              InoraTrabalheConosco(),
+              InoraParceirosPreview(),
               InoraFooter(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class InoraParceirosPreview extends StatelessWidget {
+  const InoraParceirosPreview({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var responsiveHeight = MediaQuery.of(context).size.height;
+    var responsiveWidth = MediaQuery.of(context).size.width;
+    bool ratioVertical = responsiveHeight > responsiveWidth;
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: responsiveWidth * 0.1,
+        vertical: responsiveHeight * 0.02,
+      ),
+      width: double.infinity,
+      height: ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.2,
+      color: kWhite,
+      child: Flex(
+        direction: ratioVertical ? Axis.vertical : Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                      'Casos de sucesso',
+                      style: kTextStyleSubTitleBlack,
+                    ),
+                  ),
+                  SizedBox(
+                    height: responsiveHeight * 0.01,
+                  ),
+                  Text(
+                    'Os participantes do ecossistema da Inora que são referência no mercado.',
+                    style: kTextStyleDescriptionBlack,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/parceiros');
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsiveWidth * 0.05,
+                    vertical: responsiveHeight * 0.02,
+                  ),
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    'Conheça nossos parceiros',
+                    style: kTextStyleSubTitleBlack,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

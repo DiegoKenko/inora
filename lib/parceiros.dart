@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:inora/appbar.dart';
+import 'package:inora/footer.dart';
+import 'package:inora/header.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
@@ -18,75 +21,89 @@ class InoraParceirosState extends State<InoraParceiros> {
     var responsiveHeight = MediaQuery.of(context).size.height;
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      height: responsiveHeight * 0.4,
-      padding: EdgeInsets.only(
-        top: responsiveHeight * 0.05,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: responsiveWidth * 0.05,
-            ),
-            child: Text(
-              'PARCEIROS',
-              style: ratioVertical
-                  ? kTextStyleTitleOrangeVertical
-                  : kTextStyleTitleOrangeLarge,
-            ),
-          ),
-          Container(
-            height: responsiveHeight * 0.3,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white,
-                  Colors.white,
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: responsiveWidth * 0.05,
-              ),
-              child: SingleChildScrollView(
-                scrollDirection:
-                    ratioVertical ? Axis.vertical : Axis.horizontal,
-                child: ratioVertical
-                    ? Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: parceiros
-                            .map(
-                              (e) => CardParceiro(
-                                  ratioVertical: ratioVertical,
-                                  responsiveWidth: responsiveWidth,
-                                  responsiveHeight: responsiveHeight,
-                                  parceiro: e),
-                            )
-                            .toList(),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: parceiros
-                            .map(
-                              (e) => CardParceiro(
-                                  ratioVertical: ratioVertical,
-                                  responsiveWidth: responsiveWidth,
-                                  responsiveHeight: responsiveHeight,
-                                  parceiro: e),
-                            )
-                            .toList(),
+    return Scaffold(
+      appBar: InoraAppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InoraHeader(),
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                height: responsiveHeight * 0.4,
+                padding: EdgeInsets.only(
+                  top: responsiveHeight * 0.05,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsiveWidth * 0.05,
                       ),
+                      child: Text(
+                        'PARCEIROS',
+                        style: ratioVertical
+                            ? kTextStyleTitleOrangeVertical
+                            : kTextStyleTitleOrangeLarge,
+                      ),
+                    ),
+                    Container(
+                      height: responsiveHeight * 0.3,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white,
+                            Colors.white,
+                          ],
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsiveWidth * 0.05,
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection:
+                              ratioVertical ? Axis.vertical : Axis.horizontal,
+                          child: ratioVertical
+                              ? Wrap(
+                                  alignment: WrapAlignment.spaceEvenly,
+                                  children: parceiros
+                                      .map(
+                                        (e) => CardParceiro(
+                                            ratioVertical: ratioVertical,
+                                            responsiveWidth: responsiveWidth,
+                                            responsiveHeight: responsiveHeight,
+                                            parceiro: e),
+                                      )
+                                      .toList(),
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: parceiros
+                                      .map(
+                                        (e) => CardParceiro(
+                                            ratioVertical: ratioVertical,
+                                            responsiveWidth: responsiveWidth,
+                                            responsiveHeight: responsiveHeight,
+                                            parceiro: e),
+                                      )
+                                      .toList(),
+                                ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              InoraFooter(),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

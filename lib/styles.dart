@@ -13,39 +13,42 @@ final kTextStyleSubTitleBlack = TextStyle(
   color: Colors.black,
 );
 
-final kTextStyleSubTitleOrange = TextStyle(
-  fontFamily: GoogleFonts.raleway().fontFamily,
-  fontSize: 25,
-  fontStyle: FontStyle.italic,
+final kTextStyleSubTitleHeaderOrange = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 20,
   color: kPrimaryColor,
 );
 
 final kTextStyleTitleBlack = TextStyle(
-    fontFamily: GoogleFonts.raleway().fontFamily,
-    fontSize: 32,
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-    letterSpacing: 4);
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 32,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  letterSpacing: 4,
+);
 
 final kTextStyleTitleBlackVertical = TextStyle(
-    fontFamily: GoogleFonts.raleway().fontFamily,
-    fontSize: 28,
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-    letterSpacing: 4);
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  letterSpacing: 4,
+);
 
 final kTextStyleTitleOrange = TextStyle(
-    fontFamily: GoogleFonts.raleway().fontFamily,
-    fontSize: 32,
-    fontWeight: FontWeight.bold,
-    color: kPrimaryColor,
-    letterSpacing: 4);
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 32,
+  fontWeight: FontWeight.bold,
+  color: kPrimaryColor,
+  letterSpacing: 4,
+);
 final kTextStyleTitleOrangeVertical = TextStyle(
-    fontFamily: GoogleFonts.raleway().fontFamily,
-    fontSize: 28,
-    fontWeight: FontWeight.bold,
-    color: kPrimaryColor,
-    letterSpacing: 4);
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+  color: kPrimaryColor,
+  letterSpacing: 4,
+);
 final kTextStyleTitleBlackLarge = TextStyle(
   fontFamily: GoogleFonts.karla().fontFamily,
   fontSize: 40,
@@ -79,13 +82,13 @@ final kTextTopicVertical = TextStyle(
   color: Colors.black,
 );
 final kTextStyleFooterBlackVertical = TextStyle(
-  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 18,
   fontStyle: FontStyle.italic,
   color: Colors.black,
 );
 final kTextStyleFooterBlack = TextStyle(
-  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 20,
   fontStyle: FontStyle.italic,
   color: Colors.black,
@@ -96,4 +99,11 @@ final kTextStyleObsOrange = TextStyle(
   fontSize: 15,
   fontStyle: FontStyle.italic,
   color: kPrimaryColor,
+);
+
+final kTextStyleDescriptionBlack = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 17,
+  color: Colors.black,
+  letterSpacing: 2,
 );
