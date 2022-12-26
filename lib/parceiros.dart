@@ -6,6 +6,7 @@ import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InoraParceiros extends StatefulWidget {
   InoraParceiros({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class InoraParceirosState extends State<InoraParceiros> {
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
     return Scaffold(
+      backgroundColor: kWhite,
       appBar: InoraAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -29,9 +31,9 @@ class InoraParceirosState extends State<InoraParceiros> {
             children: [
               InoraHeader(),
               Container(
-                color: Colors.white,
+                color: kWhite,
                 width: double.infinity,
-                height: responsiveHeight * 0.4,
+                height: responsiveHeight * 0.7,
                 padding: EdgeInsets.only(
                   top: responsiveHeight * 0.05,
                 ),
@@ -50,7 +52,6 @@ class InoraParceirosState extends State<InoraParceiros> {
                       ),
                     ),
                     Container(
-                      height: responsiveHeight * 0.3,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -121,33 +122,29 @@ class CardParceiro extends StatelessWidget {
   final bool ratioVertical;
   final double responsiveWidth;
   final double responsiveHeight;
-  final List<String> parceiro;
+  final List<dynamic> parceiro;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: responsiveWidth * 0.15,
+      width: ratioVertical ? responsiveWidth * 0.8 : responsiveWidth * 0.1,
       margin: EdgeInsets.symmetric(
         vertical: responsiveHeight * 0.025,
         horizontal: responsiveWidth * 0.025,
       ),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: kPrimaryColor,
-          width: 1,
-        ),
         color: Colors.white,
         shape: BoxShape.circle,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-           '',
-            style: kTextStyleSubTitleBlack,
+      child: Center(
+        child: InkWell(
+          onTap: () => launchUrl(parceiro[2]),
+          child: Image.asset(
+            parceiro[1],
+            fit: BoxFit.contain,
           ),
-        ],
+        ),
       ),
     );
   }

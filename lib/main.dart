@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/atividades.dart';
-import 'package:inora/contato.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
+import 'package:inora/contato.dart';
 import 'package:inora/parceiros.dart';
 import 'package:inora/styles.dart';
 import 'package:inora/trabalhe_conosco.dart';
@@ -97,8 +97,43 @@ class HomeState extends State<Home> {
     var responsiveHeight = MediaQuery.of(context).size.height;
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
+
+    final double headerHeight = responsiveHeight * 0.5;
+
     return Scaffold(
-      drawer: ratioVertical ? Drawer() : null,
+      drawer: ratioVertical
+          ? Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  DrawerHeader(
+                    child: Text('INORA'),
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Contato'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/contato');
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Parceiros'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/parceiros');
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Trabalhe Conosco'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/trabalhe_conosco');
+                    },
+                  ),
+                ],
+              ),
+            )
+          : null,
       appBar: InoraAppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -107,7 +142,19 @@ class HomeState extends State<Home> {
           child: Column(
             children: [
               InoraHeader(),
+              InoraIdeiaPreview(),
+              InoraLemaPreview(),
+              Container(
+                width: double.infinity,
+                height: 5,
+                color: kBlack,
+              ),
               InoraAtividades(),
+              Container(
+                width: double.infinity,
+                height: 5,
+                color: kBlack,
+              ),
               InoraParceirosPreview(),
               InoraFooter(),
             ],
@@ -157,9 +204,11 @@ class InoraParceirosPreview extends StatelessWidget {
                   SizedBox(
                     height: responsiveHeight * 0.01,
                   ),
-                  Text(
-                    'Os participantes do ecossistema da Inora que são referência no mercado.',
-                    style: kTextStyleDescriptionBlack,
+                  Center(
+                    child: Text(
+                      'Os participantes do ecossistema da Inora que são referência no mercado.',
+                      style: kTextStyleDescriptionBlack,
+                    ),
                   ),
                 ],
               ),
@@ -179,7 +228,7 @@ class InoraParceirosPreview extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(40),
                   ),
                   child: Text(
                     'Conheça nossos parceiros',
@@ -193,6 +242,208 @@ class InoraParceirosPreview extends StatelessWidget {
       ),
     );
   }
+}
+
+class InoraIdeiaPreview extends StatelessWidget {
+  const InoraIdeiaPreview({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var responsiveHeight = MediaQuery.of(context).size.height;
+    var responsiveWidth = MediaQuery.of(context).size.width;
+    bool ratioVertical = responsiveHeight > responsiveWidth;
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: responsiveWidth * 0.15,
+            vertical: responsiveHeight * 0.01,
+          ),
+          width: double.infinity,
+          height:
+              ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.2,
+          color: kWhite,
+          child: Flex(
+            direction: ratioVertical ? Axis.vertical : Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Tem uma idéia inovadora?',
+                          style: kTextStyleSubTitleBlack,
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsiveHeight * 0.01,
+                      ),
+                      Center(
+                        child: RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: '\n A ',
+                              style: kTextStyleDescriptionBlack,
+                            ),
+                            TextSpan(
+                              text: 'INORA ',
+                              style: kTextStyleDescriptionOrange,
+                            ),
+                            TextSpan(
+                              text:
+                                  'pode te ajudar a transformar sua idéia em um negócio de sucesso.',
+                              style: kTextStyleDescriptionBlack,
+                            ),
+                          ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/contato');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsiveWidth * 0.05,
+                        vertical: responsiveHeight * 0.02,
+                      ),
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Text(
+                        'Entre em contato',
+                        style: kTextStyleSubTitleBlack,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class InoraLemaPreview extends StatelessWidget {
+  const InoraLemaPreview({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var responsiveHeight = MediaQuery.of(context).size.height;
+    var responsiveWidth = MediaQuery.of(context).size.width;
+    bool ratioVertical = responsiveHeight > responsiveWidth;
+    return ClipPath(
+      clipper: LemaClipper(),
+      child: SizedBox(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: responsiveWidth * 0.15,
+            vertical: responsiveHeight * 0.01,
+          ),
+          width: double.infinity,
+          height:
+              ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.35,
+          color: kPrimaryColor.withOpacity(0.8),
+          child: Flex(
+            direction: ratioVertical ? Axis.vertical : Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: responsiveHeight * 0.05),
+                        child: Center(
+                          child: Text(
+                            'Sobre a INORA',
+                            style: kTextStyleTitleWhite,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text:
+                                    '\n\n\n A empresa nasceu da ideia de criar soluções para o mercado de TI, '
+                                    'com foco em desenvolvimento de software. ',
+                                style: kTextStyleDescriptionBlack,
+                              ),
+                              TextSpan(
+                                text:
+                                    '\n\n\n Acreditamos que a tecnologia pode ser uma grande aliada para '
+                                    'melhorar a qualidade de vida das pessoas e das empresas.',
+                                style: kTextStyleDescriptionBlack,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LemaClipper extends CustomClipper<Path> {
+  Paint paint0 = Paint()
+    ..color = const Color.fromARGB(255, 33, 150, 243)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1;
+
+  @override
+  Path getClip(Size size) {
+    Path path0 = Path();
+    path0.moveTo(size.width * 0.0008333, size.height);
+    path0.lineTo(size.width * 0.9966667, size.height);
+    path0.quadraticBezierTo(size.width * 0.9989583, size.height * 0.0446429,
+        size.width * 0.9100000, size.height * 0.0557143);
+    path0.cubicTo(
+        size.width * 0.8529167,
+        size.height * 0.0564286,
+        size.width * 0.0504167,
+        size.height * 0.0650000,
+        size.width * 0.0491667,
+        size.height * 0.1385714);
+    path0.quadraticBezierTo(size.width * 0.0279167, size.height * 0.1182143,
+        size.width * 0.0008333, size.height);
+    path0.close();
+    return path0;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
 class InoraDivider extends StatefulWidget {

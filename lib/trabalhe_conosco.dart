@@ -25,6 +25,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      backgroundColor: kWhite,
       appBar: InoraAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,6 +44,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         vertical: responsiveHeight * 0.05,
                       ),
                 width: double.infinity,
+                height: responsiveHeight * 0.7,
                 color: kWhite,
                 child: Form(
                   key: _formKey,
@@ -61,8 +63,11 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         controller: _nomeController,
                         style: kTextLabelContact,
                         decoration: InputDecoration(
-                          labelText: 'nome',
-                          labelStyle: kTextLabelContact,
+                          hintText: 'Nome',
+                          hintStyle: kTextHintContact,
+                          label: Icon(
+                            Icons.person,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -92,8 +97,11 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                               inputFormatters: <TextInputFormatter>[],
                               controller: _emailController,
                               decoration: InputDecoration(
-                                labelText: 'e-mail',
-                                labelStyle: kTextLabelContact,
+                                hintText: 'e-mail',
+                                hintStyle: kTextHintContact,
+                                label: Icon(
+                                  Icons.mail,
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -116,8 +124,11 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                                 ],
                                 style: kTextLabelContact,
                                 decoration: InputDecoration(
-                                  labelText: 'telefone',
-                                  labelStyle: kTextLabelContact,
+                                  hintText: 'telefone',
+                                  label: Icon(
+                                    Icons.phone,
+                                  ),
+                                  hintStyle: kTextHintContact,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -136,18 +147,23 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                           ),
                         ],
                       ),
-                      InkWell(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: responsiveHeight * 0.025,
-                            horizontal: responsiveWidth * 0.1,
-                          ),
-                          width: double.infinity,
-                          height: responsiveHeight * 0.07,
-                          decoration: BoxDecoration(
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: responsiveHeight * 0.025,
+                          horizontal: responsiveWidth * 0.1,
+                        ),
+                        width: double.infinity,
+                        height: responsiveHeight * 0.07,
+                        decoration: BoxDecoration(
+                          border: Border.all(
                             color: kBlack,
-                            borderRadius: BorderRadius.circular(50),
+                            width: 2,
                           ),
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: InkWell(
+                          onTap: () {},
                           child: Center(
                             child: Text(
                               'ENVIAR',

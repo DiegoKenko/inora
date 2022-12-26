@@ -5,6 +5,7 @@ final kPrimaryColor = Color(0xFFF2650A);
 final kSecondaryColor = Colors.black;
 final kBlack = Colors.black;
 final kWhite = Colors.white;
+final kHeaderGrey = Color(0xFFF0EFEF);
 
 final kTextStyleSubTitleBlack = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
@@ -42,6 +43,13 @@ final kTextStyleTitleOrange = TextStyle(
   color: kPrimaryColor,
   letterSpacing: 4,
 );
+final kTextStyleTitleWhite = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 32,
+  fontWeight: FontWeight.bold,
+  color: kWhite,
+  letterSpacing: 4,
+);
 final kTextStyleTitleOrangeVertical = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
   fontSize: 28,
@@ -67,6 +75,11 @@ final kTextLabelContact = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
   fontSize: 22,
   color: Colors.black,
+);
+final kTextHintContact = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 22,
+  color: Colors.grey,
 );
 
 final kTextTopic = TextStyle(
@@ -105,5 +118,11 @@ final kTextStyleDescriptionBlack = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
   fontSize: 17,
   color: Colors.black,
+  letterSpacing: 2,
+);
+final kTextStyleDescriptionOrange = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 17,
+  color: kPrimaryColor,
   letterSpacing: 2,
 );
