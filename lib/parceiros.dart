@@ -38,7 +38,6 @@ class InoraParceirosState extends State<InoraParceiros> {
                   top: responsiveHeight * 0.05,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -51,50 +50,72 @@ class InoraParceirosState extends State<InoraParceiros> {
                             : kTextStyleTitleOrangeLarge,
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.white,
-                            Colors.white,
-                          ],
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: responsiveWidth * 0.05,
-                        ),
-                        child: SingleChildScrollView(
-                          scrollDirection:
-                              ratioVertical ? Axis.vertical : Axis.horizontal,
-                          child: ratioVertical
-                              ? Wrap(
-                                  alignment: WrapAlignment.spaceEvenly,
-                                  children: parceiros
-                                      .map(
-                                        (e) => CardParceiro(
-                                            ratioVertical: ratioVertical,
-                                            responsiveWidth: responsiveWidth,
-                                            responsiveHeight: responsiveHeight,
-                                            parceiro: e),
-                                      )
-                                      .toList(),
-                                )
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: parceiros
-                                      .map(
-                                        (e) => CardParceiro(
-                                            ratioVertical: ratioVertical,
-                                            responsiveWidth: responsiveWidth,
-                                            responsiveHeight: responsiveHeight,
-                                            parceiro: e),
-                                      )
-                                      .toList(),
-                                ),
+                    Expanded(
+                      child: Align(
+                        alignment: ratioVertical
+                            ? Alignment.centerLeft
+                            : Alignment.center,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: ratioVertical
+                                ? responsiveHeight * 0.05
+                                : responsiveHeight * 0.01,
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white,
+                                Colors.white,
+                              ],
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsiveWidth * 0.05,
+                            ),
+                            child: SingleChildScrollView(
+                              scrollDirection: ratioVertical
+                                  ? Axis.vertical
+                                  : Axis.horizontal,
+                              child: ratioVertical
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: parceiros
+                                          .map(
+                                            (e) => CardParceiro(
+                                                ratioVertical: ratioVertical,
+                                                responsiveWidth:
+                                                    responsiveWidth,
+                                                responsiveHeight:
+                                                    responsiveHeight,
+                                                parceiro: e),
+                                          )
+                                          .toList(),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: parceiros
+                                          .map(
+                                            (e) => CardParceiro(
+                                                ratioVertical: ratioVertical,
+                                                responsiveWidth:
+                                                    responsiveWidth,
+                                                responsiveHeight:
+                                                    responsiveHeight,
+                                                parceiro: e),
+                                          )
+                                          .toList(),
+                                    ),
+                            ),
+                          ),
                         ),
                       ),
                     ),

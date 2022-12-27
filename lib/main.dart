@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers, sort_child_properties_last, unnecessary_import
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inora/appbar.dart';
@@ -107,9 +108,9 @@ class HomeState extends State<Home> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   DrawerHeader(
-                    child: Text('INORA'),
+                    child: Text(''),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: kPrimaryColor,
                     ),
                   ),
                   ListTile(
@@ -144,17 +145,7 @@ class HomeState extends State<Home> {
               InoraHeader(),
               InoraIdeiaPreview(),
               InoraLemaPreview(),
-              Container(
-                width: double.infinity,
-                height: 5,
-                color: kBlack,
-              ),
               InoraAtividades(),
-              Container(
-                width: double.infinity,
-                height: 5,
-                color: kBlack,
-              ),
               InoraParceirosPreview(),
               InoraFooter(),
             ],
@@ -232,7 +223,9 @@ class InoraParceirosPreview extends StatelessWidget {
                   ),
                   child: Text(
                     'Conheça nossos parceiros',
-                    style: kTextStyleSubTitleBlack,
+                    style: ratioVertical
+                        ? kTextStyleSubTitleBlackVertical
+                        : kTextStyleSubTitleBlack,
                   ),
                 ),
               ),
@@ -263,7 +256,7 @@ class InoraIdeiaPreview extends StatelessWidget {
           ),
           width: double.infinity,
           height:
-              ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.2,
+              ratioVertical ? responsiveHeight * 0.7 : responsiveHeight * 0.2,
           color: kWhite,
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
@@ -327,7 +320,9 @@ class InoraIdeiaPreview extends StatelessWidget {
                       ),
                       child: Text(
                         'Entre em contato',
-                        style: kTextStyleSubTitleBlack,
+                        style: ratioVertical
+                            ? kTextStyleSubTitleBlackVertical
+                            : kTextStyleSubTitleBlack,
                       ),
                     ),
                   ),
@@ -361,7 +356,7 @@ class InoraLemaPreview extends StatelessWidget {
           ),
           width: double.infinity,
           height:
-              ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.35,
+              ratioVertical ? responsiveHeight * 0.9 : responsiveHeight * 0.35,
           color: kPrimaryColor.withOpacity(0.8),
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
@@ -379,7 +374,7 @@ class InoraLemaPreview extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'Sobre a INORA',
-                            style: kTextStyleTitleWhite,
+                            style: kTextStyleSubTitleWhite,
                           ),
                         ),
                       ),
@@ -389,7 +384,7 @@ class InoraLemaPreview extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text:
-                                    '\n\n\n A empresa nasceu da ideia de criar soluções para o mercado de TI, '
+                                    '\n\n\n A empresa nasceu da ideia de criar soluções para diversas áreas de atuação, '
                                     'com foco em desenvolvimento de software. ',
                                 style: kTextStyleDescriptionBlack,
                               ),
@@ -424,20 +419,20 @@ class LemaClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
+    Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
     Path path0 = Path();
-    path0.moveTo(size.width * 0.0008333, size.height);
-    path0.lineTo(size.width * 0.9966667, size.height);
-    path0.quadraticBezierTo(size.width * 0.9989583, size.height * 0.0446429,
-        size.width * 0.9100000, size.height * 0.0557143);
-    path0.cubicTo(
-        size.width * 0.8529167,
-        size.height * 0.0564286,
-        size.width * 0.0504167,
-        size.height * 0.0650000,
-        size.width * 0.0491667,
-        size.height * 0.1385714);
-    path0.quadraticBezierTo(size.width * 0.0279167, size.height * 0.1182143,
-        size.width * 0.0008333, size.height);
+    path0.moveTo(0, size.height * 0.18);
+    path0.quadraticBezierTo(
+        size.width * 0.5, 0, size.width, size.height * 0.05);
+    path0.quadraticBezierTo(
+        size.width, size.height * 0.9, size.width, size.height);
+    path0.quadraticBezierTo(
+        size.width * 0.5, size.height, 0, size.height * 0.85);
+    path0.quadraticBezierTo(0, size.height, 0, size.height * 0.05);
     path0.close();
     return path0;
   }

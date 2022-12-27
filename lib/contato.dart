@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inora/appbar.dart';
+import 'package:inora/firestore/firestore.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/styles.dart';
@@ -25,18 +26,19 @@ class _InoraContatoState extends State<InoraContato> {
     TextEditingController _telefoneController = TextEditingController();
     TextEditingController _descricaoController = TextEditingController();
     TextEditingController _areaController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: kWhite,
-      appBar: InoraAppBar(),
+      appBar: const InoraAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              InoraHeader(),
+              const InoraHeader(),
               Container(
                 height: ratioVertical
                     ? responsiveHeight * 0.9
-                    : responsiveHeight * 0.8,
+                    : responsiveHeight * 0.9,
                 padding: EdgeInsets.symmetric(
                   horizontal: responsiveWidth * 0.2,
                   vertical: responsiveHeight * 0.1,
@@ -54,6 +56,7 @@ class _InoraContatoState extends State<InoraContato> {
                     ),
                     Center(
                       child: Form(
+                        key: _formKey,
                         child: Column(
                           children: [
                             Padding(
@@ -63,11 +66,20 @@ class _InoraContatoState extends State<InoraContato> {
                                 decoration: InputDecoration(
                                   hintText: 'nome',
                                   hintStyle: kTextHintContact,
-                                  label: Icon(
+                                  label: const Icon(
                                     Icons.person,
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'nome deve ser preenchido';
+                                  } else if (value.isEmpty) {
+                                    return "nome inválido";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                             ),
                             Padding(
@@ -85,7 +97,7 @@ class _InoraContatoState extends State<InoraContato> {
                                   style: kTextLabelContact,
                                   decoration: InputDecoration(
                                     hintText: 'telefone',
-                                    label: Icon(
+                                    label: const Icon(
                                       Icons.phone,
                                     ),
                                     hintStyle: kTextHintContact,
@@ -112,11 +124,20 @@ class _InoraContatoState extends State<InoraContato> {
                                 decoration: InputDecoration(
                                   hintText: 'e-mail',
                                   hintStyle: kTextHintContact,
-                                  label: Icon(
+                                  label: const Icon(
                                     Icons.mail,
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'e-mail deve ser preenchido';
+                                  } else if (value.isEmpty) {
+                                    return "e-mail inválido";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                             ),
                             Padding(
@@ -126,11 +147,20 @@ class _InoraContatoState extends State<InoraContato> {
                                 decoration: InputDecoration(
                                   hintText: 'idéia, sugestão, crítica, etc',
                                   hintStyle: kTextHintContact,
-                                  label: Icon(
+                                  label: const Icon(
                                     Icons.star,
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return ' deve ser preenchido';
+                                  } else if (value.isEmpty) {
+                                    return " inválido";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                             ),
                             Padding(
@@ -140,11 +170,20 @@ class _InoraContatoState extends State<InoraContato> {
                                 decoration: InputDecoration(
                                   hintText: 'area de atuação',
                                   hintStyle: kTextHintContact,
-                                  label: Icon(
+                                  label: const Icon(
                                     Icons.work,
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'área de atuação deve ser preenchida';
+                                  } else if (value.isEmpty) {
+                                    return "área inválida";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                             ),
                             Container(
@@ -163,7 +202,47 @@ class _InoraContatoState extends State<InoraContato> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () async {
+                                  if (!_formKey.currentState!.validate()) {
+                                    return;
+                                  }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      elevation: 20,
+                                      duration: Duration(seconds: 3),
+                                      content: Text('Enviando mensagem...'),
+                                    ),
+                                  );
+                                  await ContatoFirestore().addMensagem(
+                                    nome: _nomeController.text,
+                                    email: _emailController.text,
+                                    telefone: _telefoneController.text,
+                                    descricao: _descricaoController.text,
+                                    area: _areaController.text,
+                                  );
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                            'Mensagem enviada com sucesso!'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  _nomeController.clear();
+                                  _emailController.clear();
+                                  _telefoneController.clear();
+                                  _descricaoController.clear();
+                                  _areaController.clear();
+                                },
                                 child: Center(
                                   child: Text(
                                     'ENVIAR',

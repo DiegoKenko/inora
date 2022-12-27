@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inora/appbar.dart';
+import 'package:inora/firestore/firestore.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/styles.dart';
@@ -93,20 +94,28 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         children: [
                           Flexible(
                             child: TextFormField(
-                              style: kTextLabelContact,
-                              inputFormatters: <TextInputFormatter>[],
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                hintText: 'e-mail',
-                                hintStyle: kTextHintContact,
-                                label: Icon(
-                                  Icons.mail,
+                                style: kTextLabelContact,
+                                inputFormatters: <TextInputFormatter>[],
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  hintText: 'e-mail',
+                                  hintStyle: kTextHintContact,
+                                  label: Icon(
+                                    Icons.mail,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'e-mail deve ser preenchido';
+                                  } else if (value.isEmpty) {
+                                    return "e-mail inválido";
+                                  } else {
+                                    return null;
+                                  }
+                                }),
                           ),
                           SizedBox(
                             width: responsiveWidth * 0.025,
@@ -163,7 +172,43 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () async {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                elevation: 20,
+                                duration: Duration(seconds: 3),
+                                content: Text('Enviando mensagem...'),
+                              ),
+                            );
+                            await ContatoFirestore().addMensagem(
+                              nome: _nomeController.text,
+                              email: _emailController.text,
+                              telefone: _telefoneController.text,
+                              descricao: ' trabalhe conosco',
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Mensagem enviada com sucesso!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            _nomeController.clear();
+                            _emailController.clear();
+                            _telefoneController.clear();
+                          },
                           child: Center(
                             child: Text(
                               'ENVIAR',

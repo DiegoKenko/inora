@@ -112,19 +112,12 @@ class HeaderClipper extends CustomClipper<Path> {
       ..strokeWidth = 1;
 
     Path path0 = Path();
-    path0.moveTo(size.width * 0.0008333, size.height * 0.0028571);
-    path0.quadraticBezierTo(size.width * 0.0310417, size.height * 0.8350000,
-        size.width * 0.0683333, size.height * 0.8528571);
-    path0.cubicTo(
-        size.width * 0.0893750,
-        size.height * 0.9478571,
-        size.width * 0.8850000,
-        size.height * 0.8664286,
-        size.width * 0.9025000,
-        size.height * 0.8000000);
-    path0.quadraticBezierTo(size.width * 0.9672917, size.height * 0.7792857,
-        size.width * 0.9991667, size.height * 0.0014286);
-    path0.lineTo(size.width * 0.0008333, size.height * 0.0028571);
+    path0.quadraticBezierTo(size.width * 0.03, size.height * 0.83,
+        size.width * 0.07, size.height * 0.85);
+    path0.cubicTo(size.width * 0.09, size.height * 0.95, size.width * 0.89,
+        size.height * 0.87, size.width * 0.9, size.height * 0.8);
+    path0.quadraticBezierTo(size.width * 0.97, size.height * 0.78, size.width,
+        size.height * 0.0015);
     path0.close();
 
     return path0;

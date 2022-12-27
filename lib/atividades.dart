@@ -20,32 +20,37 @@ class InoraAtividadesState extends State<InoraAtividades> {
     var responsiveHeight = MediaQuery.of(context).size.height;
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        vertical: ratioVertical ? responsiveHeight * 0.05 : 0.15,
-        horizontal: ratioVertical ? 0.1 : responsiveWidth * 0.1,
-      ),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(255, 0, 138, 180).withOpacity(0.7),
-            Color.fromARGB(255, 0, 138, 180).withOpacity(0.3),
-          ],
+    return ClipPath(
+      clipper: AtividadesClipper(),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(
+          vertical:
+              ratioVertical ? responsiveHeight * 0.15 : responsiveHeight * 0.1,
+          horizontal:
+              ratioVertical ? responsiveWidth * 0.1 : responsiveWidth * 0.05,
         ),
-      ),
-      child: Column(
-        children: atividades
-            .map(
-              (e) => CardAtividades(
-                  ratioVertical: ratioVertical,
-                  responsiveWidth: responsiveWidth,
-                  responsiveHeight: responsiveHeight,
-                  atividades: e),
-            )
-            .toList(),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 0, 138, 180).withOpacity(0.7),
+              Color.fromARGB(255, 0, 138, 180).withOpacity(0.3),
+            ],
+          ),
+        ),
+        child: Column(
+          children: atividades
+              .map(
+                (e) => CardAtividades(
+                    ratioVertical: ratioVertical,
+                    responsiveWidth: responsiveWidth,
+                    responsiveHeight: responsiveHeight,
+                    atividades: e),
+              )
+              .toList(),
+        ),
       ),
     );
   }
@@ -71,75 +76,81 @@ class CardAtividades extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         horizontal: ratioVertical ? 0.02 : responsiveWidth * 0.1,
         vertical:
-            ratioVertical ? responsiveHeight * 0.02 : responsiveWidth * 0.02,
+            ratioVertical ? responsiveHeight * 0.02 : responsiveWidth * 0.01,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flex(
-            direction: ratioVertical ? Axis.vertical : Axis.horizontal,
-            children: [
-              Image.asset(
-                atividades['imagem'],
-                width: ratioVertical
-                    ? responsiveWidth * 0.5
-                    : responsiveWidth * 0.2,
-                height: ratioVertical
-                    ? responsiveHeight * 0.3
-                    : responsiveHeight * 0.15,
-              ),
-              ratioVertical
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                        top: responsiveHeight * 0.01,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: responsiveHeight * 0.1),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flex(
+              direction: ratioVertical ? Axis.vertical : Axis.horizontal,
+              children: [
+                Image.asset(
+                  atividades['imagem'],
+                  width: ratioVertical
+                      ? responsiveWidth * 0.5
+                      : responsiveWidth * 0.2,
+                  height: ratioVertical
+                      ? responsiveHeight * 0.3
+                      : responsiveHeight * 0.15,
+                ),
+                ratioVertical
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                          top: responsiveHeight * 0.01,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 30,
+                                horizontal: responsiveWidth * 0.08,
+                              ),
+                              child: Text(
+                                atividades['nome'],
+                                softWrap: true,
+                                overflow: TextOverflow.clip,
+                                style: ratioVertical
+                                    ? kTextStyleTitleBlackVertical
+                                    : kTextStyleTitleBlackLarge,
+                              ),
+                            ),
+                            Topicos(topicos: atividades['topicos']),
+                          ],
+                        ),
+                      )
+                    : Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 30,
+                                  horizontal: responsiveWidth * 0.03,
+                                ),
+                                child: Text(
+                                  atividades['nome'],
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: kTextStyleTitleWhiteLarge,
+                                ),
+                              ),
+                            ),
+                            Topicos(topicos: atividades['topicos']),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 30,
-                              horizontal: responsiveWidth * 0.08,
-                            ),
-                            child: Text(
-                              atividades['nome'],
-                              softWrap: true,
-                              overflow: TextOverflow.clip,
-                              style: ratioVertical
-                                  ? kTextStyleTitleBlackVertical
-                                  : kTextStyleTitleBlackLarge,
-                            ),
-                          ),
-                          Topicos(topicos: atividades['topicos']),
-                        ],
-                      ),
-                    )
-                  : Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 30,
-                              horizontal: responsiveWidth * 0.03,
-                            ),
-                            child: Text(
-                              atividades['nome'],
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextStyleTitleBlackLarge,
-                            ),
-                          ),
-                          Topicos(topicos: atividades['topicos']),
-                        ],
-                      ),
-                    ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -171,9 +182,9 @@ class Topicos extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    Icons.arrow_forward_ios,
+                    Icons.arrow_right_rounded,
                     color: kPrimaryColor,
-                    size: ratioVertical ? 28 : 40,
+                    size: ratioVertical ? 28 : 35,
                   ),
                 ),
                 Expanded(
@@ -189,4 +200,30 @@ class Topicos extends StatelessWidget {
       ).toList(),
     );
   }
+}
+
+class AtividadesClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    Path path0 = Path();
+    path0.moveTo(0, size.height * 0.02);
+    path0.quadraticBezierTo(
+        size.width * 0.5, 0, size.width, size.height * 0.05);
+    path0.quadraticBezierTo(
+        size.width, size.height * 0.75, size.width, size.height * 0.9);
+    path0.quadraticBezierTo(
+        size.width * 0.5, size.height, 0, size.height * 0.95);
+    path0.quadraticBezierTo(0, size.height * 0.9, 0, size.height * 0.05);
+    path0.close();
+
+    return path0;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

@@ -17,9 +17,11 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: ratioVertical ? true : false,
       backgroundColor: kBlack,
-      centerTitle: ratioVertical ? false : true,
+      centerTitle: true,
       title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 60),
+        padding: const EdgeInsets.symmetric(
+          vertical: 2,
+        ),
         child: Flex(
           direction: ratioVertical ? Axis.vertical : Axis.horizontal,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,15 +32,8 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                 Navigator.pushReplacementNamed(context, '/');
               },
               child: Text(
-                'INORA',
-                style: kTextStyleTitleOrangeLarge,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: responsiveWidth * 0.01),
-              child: Text(
-                ' ( em construção ) ',
-                style: kTextStyleObsOrange,
+                '( em construção ) ',
+                style: kTextStyleSubTitleWhite,
               ),
             ),
           ],
