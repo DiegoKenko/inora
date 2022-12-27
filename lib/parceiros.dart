@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:inora/appbar.dart';
+import 'package:inora/drawer.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/mock.dart';
@@ -9,7 +10,7 @@ import 'package:inora/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InoraParceiros extends StatefulWidget {
-  InoraParceiros({Key? key}) : super(key: key);
+  const InoraParceiros({Key? key}) : super(key: key);
 
   @override
   State<InoraParceiros> createState() => InoraParceirosState();
@@ -23,6 +24,7 @@ class InoraParceirosState extends State<InoraParceiros> {
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
     return Scaffold(
+      drawer: ratioVertical ? InoraDrawer() : null,
       backgroundColor: kWhite,
       appBar: InoraAppBar(),
       body: SafeArea(
@@ -46,8 +48,8 @@ class InoraParceirosState extends State<InoraParceiros> {
                       child: Text(
                         'PARCEIROS',
                         style: ratioVertical
-                            ? kTextStyleTitleOrangeVertical
-                            : kTextStyleTitleOrangeLarge,
+                            ? kTextStyleTitleBlackVertical
+                            : kTextStyleTitleBlack,
                       ),
                     ),
                     Expanded(

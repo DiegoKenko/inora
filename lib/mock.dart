@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
-
 var parceiros = [
   [
     'Canguru',
-    'canguru.png',
+    'images/canguru.png',
     Uri.http(
       'cuidadorescanguru.com.br',
     )
   ],
   [
     'Idea',
-    'idea1.png',
+    'images/idea1.png',
     Uri.http(
       'www.instagram.com',
       'ideafilmes',
@@ -18,35 +16,39 @@ var parceiros = [
   ],
   [
     'Apple',
-    'apple.png',
+    'images/apple.png',
     Uri.http(
       'www.apple.com',
     )
   ],
-  ['Firebase', 'firebase.png', Uri.http('firebase.google.com')],
+  [
+    'Firebase',
+    'images/firebase.png',
+    Uri.http('firebase.google.com'),
+  ],
 ];
 
-var imagens = {
-  'appTrans': 'appTrans.gif',
-  'develop1': 'develop1.gif',
-  'develop2': 'develop2.gif',
-  'app': 'app.png',
-  'apple': 'apple.png',
-  'canguru': 'canguru.png',
-  'digital_wave': 'digital_wave.png',
-  'firebase': 'firebase.png',
-  'idea1': 'idea1.png',
-  'idea2': 'idea2.png',
-  'mobile_database': 'mobile_database.png',
-  'website': 'website.png',
-  'world_web': 'world_web.png',
-  'prothues': 'prothues.png',
+Map<String, String> imagens = {
+  'appTrans': 'images/appTrans.gif',
+  'develop1': 'images/develop1.gif',
+  'develop2': 'images/develop2.gif',
+  'app': 'images/app.png',
+  'apple': 'images/apple.png',
+  'canguru': 'images/canguru.png',
+  'digital_wave': 'images/digital_wave.png',
+  'firebase': 'images/firebase.png',
+  'idea1': 'images/idea1.png',
+  'idea2': 'images/idea2.png',
+  'mobile_database': 'images/mobile_database.png',
+  'website': 'images/website.png',
+  'world_web': 'images/world_web.png',
+  'prothues': 'images/prothues.png',
 };
 
 List<Map<String, dynamic>> atividades = [
   {
     'nome': 'APLICATIVOS MÓVEIS',
-    'imagem': 'assets/app.png',
+    'imagem': 'images/app.png',
     'topicos': [
       'Desenvolvimento de aplicativos sob demanda',
       'Leve e rápido',
@@ -57,7 +59,7 @@ List<Map<String, dynamic>> atividades = [
   },
   {
     'nome': 'WEBSITES',
-    'imagem': 'assets/website.png',
+    'imagem': 'images/website.png',
     'topicos': [
       'Desenvolvimento de websites sob demanda',
       'Responsivo para dispositivos móveis',
@@ -67,7 +69,7 @@ List<Map<String, dynamic>> atividades = [
   },
   {
     'nome': 'PROTHEUS',
-    'imagem': 'assets/protheus.png',
+    'imagem': 'images/protheus.png',
     'topicos': [
       'Soluções customizadas para o ERP Protheus',
       'Integração com sistemas de terceiros',

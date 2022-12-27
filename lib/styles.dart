@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final kPrimaryColor = Color(0xFFF2650A);
-final kSecondaryColor = Colors.black;
-final kBlack = Colors.black;
-final kWhite = Colors.white;
-final kHeaderGrey = Color(0xFFF0EFEF);
+const kPrimaryColor = Color(0xFFF2650A);
+const kSecondaryColor = Colors.black;
+const kBlack = Colors.black;
+const kWhite = Colors.white;
+const kHeaderGrey = Color(0xFFF0EFEF);
 
 final kTextStyleSubTitleBlack = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,

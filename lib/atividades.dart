@@ -7,7 +7,7 @@ import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
 class InoraAtividades extends StatefulWidget {
-  InoraAtividades({Key? key}) : super(key: key);
+  const InoraAtividades({Key? key}) : super(key: key);
 
   @override
   State<InoraAtividades> createState() => InoraAtividadesState();
@@ -205,11 +205,6 @@ class Topicos extends StatelessWidget {
 class AtividadesClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
     Path path0 = Path();
     path0.moveTo(0, size.height * 0.02);
     path0.quadraticBezierTo(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inora/appbar.dart';
+import 'package:inora/drawer.dart';
 import 'package:inora/firestore/firestore.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
@@ -8,7 +9,7 @@ import 'package:inora/styles.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class InoraContato extends StatefulWidget {
-  InoraContato({Key? key}) : super(key: key);
+  const InoraContato({Key? key}) : super(key: key);
 
   @override
   State<InoraContato> createState() => _InoraContatoState();
@@ -21,13 +22,14 @@ class _InoraContatoState extends State<InoraContato> {
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
-    TextEditingController _nomeController = TextEditingController();
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _telefoneController = TextEditingController();
-    TextEditingController _descricaoController = TextEditingController();
-    TextEditingController _areaController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    TextEditingController nomeController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController telefoneController = TextEditingController();
+    TextEditingController descricaoController = TextEditingController();
+    TextEditingController areaController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
+      drawer: ratioVertical ? InoraDrawer() : null,
       backgroundColor: kWhite,
       appBar: const InoraAppBar(),
       body: SafeArea(
@@ -49,20 +51,20 @@ class _InoraContatoState extends State<InoraContato> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Entre em contato conosoco',
+                          'Entre em contato com a gente!',
                           style: kTextStyleTitleBlack,
                         ),
                       ),
                     ),
                     Center(
                       child: Form(
-                        key: _formKey,
+                        key: formKey,
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                controller: _nomeController,
+                                controller: nomeController,
                                 decoration: InputDecoration(
                                   hintText: 'nome',
                                   hintStyle: kTextHintContact,
@@ -85,7 +87,7 @@ class _InoraContatoState extends State<InoraContato> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                  controller: _telefoneController,
+                                  controller: telefoneController,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
                                     MaskTextInputFormatter(
@@ -120,7 +122,7 @@ class _InoraContatoState extends State<InoraContato> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                controller: _emailController,
+                                controller: emailController,
                                 decoration: InputDecoration(
                                   hintText: 'e-mail',
                                   hintStyle: kTextHintContact,
@@ -143,7 +145,7 @@ class _InoraContatoState extends State<InoraContato> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                controller: _descricaoController,
+                                controller: descricaoController,
                                 decoration: InputDecoration(
                                   hintText: 'idéia, sugestão, crítica, etc',
                                   hintStyle: kTextHintContact,
@@ -166,7 +168,7 @@ class _InoraContatoState extends State<InoraContato> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                controller: _areaController,
+                                controller: areaController,
                                 decoration: InputDecoration(
                                   hintText: 'area de atuação',
                                   hintStyle: kTextHintContact,
@@ -203,7 +205,7 @@ class _InoraContatoState extends State<InoraContato> {
                               ),
                               child: InkWell(
                                 onTap: () async {
-                                  if (!_formKey.currentState!.validate()) {
+                                  if (!formKey.currentState!.validate()) {
                                     return;
                                   }
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -214,11 +216,11 @@ class _InoraContatoState extends State<InoraContato> {
                                     ),
                                   );
                                   await ContatoFirestore().addMensagem(
-                                    nome: _nomeController.text,
-                                    email: _emailController.text,
-                                    telefone: _telefoneController.text,
-                                    descricao: _descricaoController.text,
-                                    area: _areaController.text,
+                                    nome: nomeController.text,
+                                    email: emailController.text,
+                                    telefone: telefoneController.text,
+                                    descricao: descricaoController.text,
+                                    area: areaController.text,
                                   );
                                   showDialog(
                                     context: context,
@@ -237,11 +239,11 @@ class _InoraContatoState extends State<InoraContato> {
                                       );
                                     },
                                   );
-                                  _nomeController.clear();
-                                  _emailController.clear();
-                                  _telefoneController.clear();
-                                  _descricaoController.clear();
-                                  _areaController.clear();
+                                  nomeController.clear();
+                                  emailController.clear();
+                                  telefoneController.clear();
+                                  descricaoController.clear();
+                                  areaController.clear();
                                 },
                                 child: Center(
                                   child: Text(
@@ -258,7 +260,7 @@ class _InoraContatoState extends State<InoraContato> {
                   ],
                 ),
               ),
-              InoraFooter(),
+              const InoraFooter(),
             ],
           ),
         ),

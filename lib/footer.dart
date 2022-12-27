@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inora/styles.dart';
 
 class InoraFooter extends StatefulWidget {
-  InoraFooter({Key? key}) : super(key: key);
+  const InoraFooter({Key? key}) : super(key: key);
 
   @override
   State<InoraFooter> createState() => _InoraFooterState();

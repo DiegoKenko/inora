@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 import 'package:responsive_styles/responsive_styles.dart';
 
@@ -85,7 +86,7 @@ class _InoraHeaderState extends State<InoraHeader> {
                 color: kHeaderGrey,
                 child: Center(
                   child: Image.asset(
-                    'assets/appTrans.gif',
+                    imagens['appTrans']!,
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/atividades.dart';
+import 'package:inora/drawer.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,8 +16,6 @@ import 'package:inora/contato.dart';
 import 'package:inora/parceiros.dart';
 import 'package:inora/styles.dart';
 import 'package:inora/trabalhe_conosco.dart';
-import 'package:sliver_tools/sliver_tools.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -86,7 +85,6 @@ class HomeState extends State<Home> {
   List<bool> hover = [false, false, false];
   Image image = const Image(image: NetworkImage(''));
   final double itemMaxWidth = 600;
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
@@ -99,42 +97,8 @@ class HomeState extends State<Home> {
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
 
-    final double headerHeight = responsiveHeight * 0.5;
-
     return Scaffold(
-      drawer: ratioVertical
-          ? Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    child: Text(''),
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Contato'),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/contato');
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Parceiros'),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/parceiros');
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Trabalhe Conosco'),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/trabalhe_conosco');
-                    },
-                  ),
-                ],
-              ),
-            )
-          : null,
+      drawer: ratioVertical ? InoraDrawer() : null,
       appBar: InoraAppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -188,7 +152,7 @@ class InoraParceirosPreview extends StatelessWidget {
                 children: [
                   Center(
                     child: Text(
-                      'Casos de sucesso',
+                      'Cases',
                       style: kTextStyleSubTitleBlack,
                     ),
                   ),
@@ -419,11 +383,6 @@ class LemaClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
     Path path0 = Path();
     path0.moveTo(0, size.height * 0.18);
     path0.quadraticBezierTo(
