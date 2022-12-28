@@ -275,7 +275,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: responsiveWidth * 0.05,
+                        horizontal: responsiveWidth * 0.03,
                         vertical: responsiveHeight * 0.02,
                       ),
                       decoration: BoxDecoration(

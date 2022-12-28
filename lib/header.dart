@@ -55,7 +55,7 @@ class _InoraHeaderState extends State<InoraHeader> {
                     flex: 1,
                     child: Center(
                       child: Image.asset(
-                        'assets/appTrans.gif',
+                        imagens['appTrans']!,
                         fit: BoxFit.cover,
                       ),
                     ),

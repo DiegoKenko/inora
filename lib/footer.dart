@@ -26,7 +26,7 @@ class _InoraFooterState extends State<InoraFooter> {
               color: kPrimaryColor,
               child: Center(
                 child: Text(
-                  '© 2022 Inora Softwares Ltda.',
+                  '© 2023 Inora Softwares Ltda.',
                   style: ratioVertical
                       ? kTextStyleFooterBlackVertical
                       : kTextStyleFooterBlack,
