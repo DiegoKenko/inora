@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <base href="$FLUTTER_BASE_HREF">
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="INORA SOFTWARES.">
@@ -30,14 +30,14 @@
 
   <script src="flutter.js" defer></script>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5HG5ZQTYX"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDLBSQD9D8"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'G-V5HG5ZQTYX');
+    gtag('config', 'G-MDLBSQD9D8');
   </script>
 </head>
 
@@ -181,7 +181,7 @@
       });
     }
 
-    initCookieNotice();
+    //initCookieNotice();
   </script>
 
   <!-- Loading indicator -->
@@ -252,6 +252,7 @@
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
         loading.classList.add('init_done');
+        //const analytics = getAnalytics(app);
         return appRunner.runApp();
       }).then(function (app) {
         // Wait a few milliseconds so users can see the "zoooom" animation

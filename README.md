@@ -1,7 +1,6 @@
 # inora
 
-A new Flutter project.
-
+Inora Softwares LTDA. Desenvolvimento de software sob demanda. Foco em Websites e Aplitivos móveis
 ## Getting Started
 
 This project is a starting point for a Flutter application.

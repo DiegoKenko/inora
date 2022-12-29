@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/drawer.dart';
-import 'package:inora/firestore/firestore.dart';
+import 'package:inora/firebase/firestore.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/styles.dart';
@@ -27,7 +27,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      drawer: ratioVertical ? InoraDrawer() : null,
+      drawer: ratioVertical ? const InoraDrawer() : null,
       backgroundColor: kWhite,
       appBar: const InoraAppBar(),
       body: SafeArea(
@@ -83,8 +83,6 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                                 !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                               //allow upper and lower case alphabets and space
                               return "nome inválido";
-                            } else {
-                              return null;
                             }
                           }
                         },
@@ -124,6 +122,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                           ),
                           Flexible(
                             child: TextFormField(
+                                keyboardType: TextInputType.number,
                                 controller: telefoneController,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly,

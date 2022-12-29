@@ -29,7 +29,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/home');
               },
               child: Text(
                 '( em construção ) ',

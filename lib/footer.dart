@@ -17,23 +17,22 @@ class _InoraFooterState extends State<InoraFooter> {
 
     return ClipPath(
       clipper: FooterClipper(),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: responsiveHeight * 0.07,
-              color: kPrimaryColor,
-              child: Center(
-                child: Text(
-                  '© 2023 Inora Softwares Ltda.',
-                  style: ratioVertical
-                      ? kTextStyleFooterBlackVertical
-                      : kTextStyleFooterBlack,
-                ),
-              ),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushReplacementNamed(context, '/home');
+        },
+        child: Container(
+          width: double.infinity,
+          height: responsiveHeight * 0.07,
+          color: kPrimaryColor,
+          child: Center(
+            child: Text(
+              '© 2023 Inora Softwares Ltda.',
+              style: ratioVertical
+                  ? kTextStyleFooterBlackVertical
+                  : kTextStyleFooterBlack,
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -50,8 +49,8 @@ class FooterClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path0 = Path();
     path0.moveTo(size.width * 0.0008333, size.height);
-    path0.lineTo(size.width * 0.9966667, size.height);
-    path0.quadraticBezierTo(size.width * 0.9989583, size.height * 0.0446429,
+    path0.lineTo(size.width, size.height);
+    path0.quadraticBezierTo(size.width, size.height * 0.0446429,
         size.width * 0.9100000, size.height * 0.0557143);
     path0.cubicTo(
         size.width * 0.8529167,

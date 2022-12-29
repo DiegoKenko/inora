@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_import, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers, sort_child_properties_last, unnecessary_import
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/atividades.dart';
 import 'package:inora/drawer.dart';
+import 'package:inora/firebase/analytics.dart';
 import 'package:inora/firebase_options.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +16,7 @@ import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/contato.dart';
 import 'package:inora/parceiros.dart';
+import 'package:inora/diego.dart';
 import 'package:inora/styles.dart';
 import 'package:inora/trabalhe_conosco.dart';
 
@@ -32,18 +35,26 @@ class Inora extends StatefulWidget {
 }
 
 class _InoraState extends State<Inora> {
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  Locale _locale = Locale('pt', 'BR');
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       scrollBehavior: MyScrollBehavior(),
       title: 'INORA',
+      locale: _locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => Home(),
+        '/home': (BuildContext context) => Home(),
         '/contato': (BuildContext context) => InoraContato(),
         '/parceiros': (BuildContext context) => InoraParceiros(),
         '/trabalhe_conosco': (BuildContext context) => InoraTrabalheConosco(),
+        '/diego': (BuildContext context) => Diego(),
       },
       theme: ThemeData(
         fontFamily: GoogleFonts.raleway().fontFamily,
@@ -85,11 +96,6 @@ class HomeState extends State<Home> {
   List<bool> hover = [false, false, false];
   Image image = const Image(image: NetworkImage(''));
   final double itemMaxWidth = 600;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

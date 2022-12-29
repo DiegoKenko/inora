@@ -12,26 +12,32 @@ class InoraDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            child: Text(''),
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: kPrimaryColor,
             ),
+            child: Text(''),
           ),
           ListTile(
-            title: Text('Contato'),
+            title: const Text('Página inicial'),
+            onTap: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+          ListTile(
+            title: const Text('Contato'),
             onTap: () {
               Navigator.pushNamed(context, '/contato');
             },
           ),
           ListTile(
-            title: Text('Parceiros'),
+            title: const Text('Parceiros'),
             onTap: () {
               Navigator.pushNamed(context, '/parceiros');
             },
           ),
           ListTile(
-            title: Text('Trabalhe Conosco'),
+            title: const Text('Trabalhe Conosco'),
             onTap: () {
               Navigator.pushNamed(context, '/trabalhe_conosco');
             },

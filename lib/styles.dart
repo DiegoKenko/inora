@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 const kPrimaryColor = Color(0xFFF2650A);
 const kSecondaryColor = Colors.black;
 const kBlack = Colors.black;
+const kGrey = Colors.grey;
 const kWhite = Colors.white;
 const kHeaderGrey = Color(0xFFF0EFEF);
 
@@ -144,4 +145,29 @@ final kTextStyleDescriptionOrange = TextStyle(
   fontSize: 17,
   color: kPrimaryColor,
   letterSpacing: 2,
+);
+
+
+final kTextProfileTitle = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 30,
+  color: Colors.black,
+);
+
+final kTextProfileSubTitle = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 20,
+  color: Colors.black,
+);
+
+final kTextProfileTitleVertical = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 25,
+  color: Colors.black,
+);
+
+final kTextProfileSubTitleVertical = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 18,
+  color: Colors.black,
 );

@@ -43,6 +43,7 @@ Map<String, String> imagens = {
   'website': 'images/website.png',
   'world_web': 'images/world_web.png',
   'prothues': 'images/prothues.png',
+  'diego': 'images/diego.jpg',
 };
 
 List<Map<String, dynamic>> atividades = [

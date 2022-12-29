@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/drawer.dart';
-import 'package:inora/firestore/firestore.dart';
+import 'package:inora/firebase/firestore.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/styles.dart';
@@ -27,9 +27,9 @@ class _InoraContatoState extends State<InoraContato> {
     TextEditingController telefoneController = TextEditingController();
     TextEditingController descricaoController = TextEditingController();
     TextEditingController areaController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
-      drawer: ratioVertical ? InoraDrawer() : null,
+      drawer: ratioVertical ? const InoraDrawer() : null,
       backgroundColor: kWhite,
       appBar: const InoraAppBar(),
       body: SafeArea(
@@ -38,9 +38,6 @@ class _InoraContatoState extends State<InoraContato> {
             children: [
               const InoraHeader(),
               Container(
-                height: ratioVertical
-                    ? responsiveHeight * 0.9
-                    : responsiveHeight * 0.9,
                 padding: EdgeInsets.symmetric(
                   horizontal: responsiveWidth * 0.2,
                   vertical: responsiveHeight * 0.1,
@@ -78,8 +75,6 @@ class _InoraContatoState extends State<InoraContato> {
                                     return 'nome deve ser preenchido';
                                   } else if (value.isEmpty) {
                                     return "nome inválido";
-                                  } else {
-                                    return null;
                                   }
                                 },
                               ),
@@ -87,6 +82,7 @@ class _InoraContatoState extends State<InoraContato> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: telefoneController,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -114,8 +110,6 @@ class _InoraContatoState extends State<InoraContato> {
                                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                                             .hasMatch(value)) {
                                       return "telefone inválido";
-                                    } else {
-                                      return null;
                                     }
                                   }),
                             ),
@@ -136,8 +130,6 @@ class _InoraContatoState extends State<InoraContato> {
                                     return 'e-mail deve ser preenchido';
                                   } else if (value.isEmpty) {
                                     return "e-mail inválido";
-                                  } else {
-                                    return null;
                                   }
                                 },
                               ),
