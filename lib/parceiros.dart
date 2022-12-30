@@ -45,7 +45,7 @@ class InoraParceirosState extends State<InoraParceiros> {
                       padding: EdgeInsets.symmetric(
                         horizontal: responsiveWidth * 0.05,
                       ),
-                      child: Text(
+                      child: SelectableText(
                         'PARCEIROS',
                         style: ratioVertical
                             ? kTextStyleTitleBlackVertical

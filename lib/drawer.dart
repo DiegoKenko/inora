@@ -23,24 +23,28 @@ class InoraDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/home');
             },
+            selectedColor: kPrimaryColor,
           ),
           ListTile(
             title: const Text('Contato'),
             onTap: () {
               Navigator.pushNamed(context, '/contato');
             },
+            selectedColor: kPrimaryColor,
           ),
           ListTile(
             title: const Text('Parceiros'),
             onTap: () {
               Navigator.pushNamed(context, '/parceiros');
             },
+            selectedColor: kPrimaryColor,
           ),
           ListTile(
             title: const Text('Trabalhe Conosco'),
             onTap: () {
               Navigator.pushNamed(context, '/trabalhe_conosco');
             },
+            selectedColor: kPrimaryColor,
           ),
         ],
       ),

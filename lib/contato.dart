@@ -27,7 +27,6 @@ class _InoraContatoState extends State<InoraContato> {
     TextEditingController telefoneController = TextEditingController();
     TextEditingController descricaoController = TextEditingController();
     TextEditingController areaController = TextEditingController();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       drawer: ratioVertical ? const InoraDrawer() : null,
       backgroundColor: kWhite,
@@ -47,206 +46,204 @@ class _InoraContatoState extends State<InoraContato> {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
+                        child: SelectableText(
                           'Entre em contato com a gente!',
                           style: kTextStyleTitleBlack,
                         ),
                       ),
                     ),
                     Center(
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: nomeController,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: nomeController,
+                              decoration: InputDecoration(
+                                hintText: 'nome',
+                                hintStyle: kTextHintContact,
+                                label: const Icon(
+                                  Icons.person,
+                                ),
+                                border: const OutlineInputBorder(),
+                              ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'nome deve ser preenchido';
+                                } else if (value.isEmpty) {
+                                  return "nome inválido";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                controller: telefoneController,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  MaskTextInputFormatter(
+                                      mask: '(##) #####-####',
+                                      filter: {
+                                        "#": RegExp(r'[0-9]'),
+                                      }),
+                                ],
+                                style: kTextLabelContact,
                                 decoration: InputDecoration(
-                                  hintText: 'nome',
-                                  hintStyle: kTextHintContact,
+                                  hintText: 'telefone',
                                   label: const Icon(
-                                    Icons.person,
+                                    Icons.phone,
                                   ),
-                                  border: const OutlineInputBorder(),
+                                  hintStyle: kTextHintContact,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'nome deve ser preenchido';
-                                  } else if (value.isEmpty) {
-                                    return "nome inválido";
+                                    return 'telefone deve ser preenchido';
+                                  } else if (value.isEmpty ||
+                                      !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                                          .hasMatch(value)) {
+                                    return "telefone inválido";
                                   }
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  controller: telefoneController,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    MaskTextInputFormatter(
-                                        mask: '(##) #####-####',
-                                        filter: {
-                                          "#": RegExp(r'[0-9]'),
-                                        }),
-                                  ],
-                                  style: kTextLabelContact,
-                                  decoration: InputDecoration(
-                                    hintText: 'telefone',
-                                    label: const Icon(
-                                      Icons.phone,
-                                    ),
-                                    hintStyle: kTextHintContact,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null) {
-                                      return 'telefone deve ser preenchido';
-                                    } else if (value.isEmpty ||
-                                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                                            .hasMatch(value)) {
-                                      return "telefone inválido";
-                                    }
-                                  }),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  hintText: 'e-mail',
-                                  hintStyle: kTextHintContact,
-                                  label: const Icon(
-                                    Icons.mail,
-                                  ),
-                                  border: const OutlineInputBorder(),
+                                  return null;
+                                }),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                hintText: 'e-mail',
+                                hintStyle: kTextHintContact,
+                                label: const Icon(
+                                  Icons.mail,
                                 ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'e-mail deve ser preenchido';
-                                  } else if (value.isEmpty) {
-                                    return "e-mail inválido";
-                                  }
-                                },
+                                border: const OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'e-mail deve ser preenchido';
+                                } else if (value.isEmpty) {
+                                  return "e-mail inválido";
+                                }
+                                return null;
+                              },
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: descricaoController,
-                                decoration: InputDecoration(
-                                  hintText: 'idéia, sugestão, crítica, etc',
-                                  hintStyle: kTextHintContact,
-                                  label: const Icon(
-                                    Icons.star,
-                                  ),
-                                  border: const OutlineInputBorder(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: descricaoController,
+                              decoration: InputDecoration(
+                                hintText: 'idéia, sugestão, crítica, etc',
+                                hintStyle: kTextHintContact,
+                                label: const Icon(
+                                  Icons.star,
                                 ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return ' deve ser preenchido';
-                                  } else if (value.isEmpty) {
-                                    return " inválido";
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                border: const OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return ' deve ser preenchido';
+                                } else if (value.isEmpty) {
+                                  return " inválido";
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: areaController,
-                                decoration: InputDecoration(
-                                  hintText: 'area de atuação',
-                                  hintStyle: kTextHintContact,
-                                  label: const Icon(
-                                    Icons.work,
-                                  ),
-                                  border: const OutlineInputBorder(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: areaController,
+                              decoration: InputDecoration(
+                                hintText: 'area de atuação',
+                                hintStyle: kTextHintContact,
+                                label: const Icon(
+                                  Icons.work,
                                 ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'área de atuação deve ser preenchida';
-                                  } else if (value.isEmpty) {
-                                    return "área inválida";
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                border: const OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'área de atuação deve ser preenchida';
+                                } else if (value.isEmpty) {
+                                  return "área inválida";
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                vertical: responsiveHeight * 0.025,
-                                horizontal: responsiveWidth * 0.1,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: responsiveHeight * 0.025,
+                              horizontal: responsiveWidth * 0.1,
+                            ),
+                            width: double.infinity,
+                            height: responsiveHeight * 0.07,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: kBlack,
+                                width: 2,
                               ),
-                              width: double.infinity,
-                              height: responsiveHeight * 0.07,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: kBlack,
-                                  width: 2,
-                                ),
-                                color: kWhite,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: InkWell(
-                                onTap: () async {
-                                  if (!formKey.currentState!.validate()) {
-                                    return;
-                                  }
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      elevation: 20,
-                                      duration: Duration(seconds: 3),
-                                      content: Text('Enviando mensagem...'),
-                                    ),
-                                  );
-                                  await ContatoFirestore().addMensagem(
-                                    nome: nomeController.text,
-                                    email: emailController.text,
-                                    telefone: telefoneController.text,
-                                    descricao: descricaoController.text,
-                                    area: areaController.text,
-                                  );
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text(
-                                            'Mensagem enviada com sucesso!'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                  nomeController.clear();
-                                  emailController.clear();
-                                  telefoneController.clear();
-                                  descricaoController.clear();
-                                  areaController.clear();
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'ENVIAR',
-                                    style: kTextStyleTitleOrange,
+                              color: kWhite,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: InkWell(
+                              onTap: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    elevation: 20,
+                                    duration: Duration(seconds: 3),
+                                    content:
+                                        SelectableText('Enviando mensagem...'),
                                   ),
+                                );
+                                await ContatoFirestore().addMensagem(
+                                  nome: nomeController.text,
+                                  email: emailController.text,
+                                  telefone: telefoneController.text,
+                                  descricao: descricaoController.text,
+                                  area: areaController.text,
+                                );
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const SelectableText(
+                                          'Mensagem enviada com sucesso!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                nomeController.clear();
+                                emailController.clear();
+                                telefoneController.clear();
+                                descricaoController.clear();
+                                areaController.clear();
+                              },
+                              child: Center(
+                                child: Text(
+                                  'ENVIAR',
+                                  style: kTextStyleTitleOrange,
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ],

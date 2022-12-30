@@ -110,10 +110,8 @@ class CardAtividades extends StatelessWidget {
                                 vertical: 30,
                                 horizontal: responsiveWidth * 0.08,
                               ),
-                              child: Text(
+                              child: SelectableText(
                                 atividades['nome'],
-                                softWrap: true,
-                                overflow: TextOverflow.clip,
                                 style: ratioVertical
                                     ? kTextStyleTitleBlackVertical
                                     : kTextStyleTitleBlackLarge,
@@ -135,10 +133,8 @@ class CardAtividades extends StatelessWidget {
                                   vertical: 30,
                                   horizontal: responsiveWidth * 0.03,
                                 ),
-                                child: Text(
+                                child: SelectableText(
                                   atividades['nome'],
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
                                   style: kTextStyleTitleWhiteLarge,
                                 ),
                               ),
@@ -188,7 +184,7 @@ class Topicos extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Text(
+                  child: SelectableText(
                     e,
                     style: ratioVertical ? kTextTopicVertical : kTextTopic,
                   ),

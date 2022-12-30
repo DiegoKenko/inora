@@ -26,11 +26,16 @@ class _InoraFooterState extends State<InoraFooter> {
           height: responsiveHeight * 0.07,
           color: kPrimaryColor,
           child: Center(
-            child: Text(
-              '© 2023 Inora Softwares Ltda.',
-              style: ratioVertical
-                  ? kTextStyleFooterBlackVertical
-                  : kTextStyleFooterBlack,
+            child: InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/home');
+              },
+              child: Text(
+                '© 2023 Inora Softwares Ltda.',
+                style: ratioVertical
+                    ? kTextStyleFooterBlackVertical
+                    : kTextStyleFooterBlack,
+              ),
             ),
           ),
         ),

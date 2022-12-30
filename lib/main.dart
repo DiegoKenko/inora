@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:inora/appbar.dart';
 import 'package:inora/atividades.dart';
 import 'package:inora/drawer.dart';
@@ -19,6 +20,8 @@ import 'package:inora/parceiros.dart';
 import 'package:inora/diego.dart';
 import 'package:inora/styles.dart';
 import 'package:inora/trabalhe_conosco.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -36,7 +39,6 @@ class Inora extends StatefulWidget {
 
 class _InoraState extends State<Inora> {
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  Locale _locale = Locale('pt', 'BR');
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +46,18 @@ class _InoraState extends State<Inora> {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
+      localizationsDelegates: [
+        AppLocalizations.delegate, //
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('pt', ''), // Portuguese, no country code
+        Locale('en', ''), // English, no country code
+      ],
       scrollBehavior: MyScrollBehavior(),
       title: 'INORA',
-      locale: _locale,
       debugShowCheckedModeBanner: false,
       initialRoute: '/home',
       routes: <String, WidgetBuilder>{
@@ -157,7 +168,7 @@ class InoraParceirosPreview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Text(
+                    child: SelectableText(
                       'Cases',
                       style: kTextStyleSubTitleBlack,
                     ),
@@ -166,7 +177,7 @@ class InoraParceirosPreview extends StatelessWidget {
                     height: responsiveHeight * 0.01,
                   ),
                   Center(
-                    child: Text(
+                    child: SelectableText(
                       'Os participantes do ecossistema da Inora que são referência no mercado.',
                       style: kTextStyleDescriptionBlack,
                     ),
@@ -182,6 +193,8 @@ class InoraParceirosPreview extends StatelessWidget {
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/parceiros');
                 },
+                splashColor: kPrimaryColor,
+                hoverColor: kBlack,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: responsiveWidth * 0.05,
@@ -241,7 +254,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
-                        child: Text(
+                        child: SelectableText(
                           'Tem uma idéia inovadora?',
                           style: kTextStyleSubTitleBlack,
                         ),
@@ -261,8 +274,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                               style: kTextStyleDescriptionOrange,
                             ),
                             TextSpan(
-                              text:
-                                  'pode te ajudar a transformar sua idéia em um negócio de sucesso.',
+                              text: AppLocalizations.of(context).lema,
                               style: kTextStyleDescriptionBlack,
                             ),
                           ]),
@@ -279,6 +291,8 @@ class InoraIdeiaPreview extends StatelessWidget {
                     onTap: () {
                       Navigator.pushReplacementNamed(context, '/contato');
                     },
+                    splashColor: kPrimaryColor,
+                    hoverColor: kBlack,
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: responsiveWidth * 0.03,
@@ -342,7 +356,7 @@ class InoraLemaPreview extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: responsiveHeight * 0.05),
                         child: Center(
-                          child: Text(
+                          child: SelectableText(
                             'Sobre a INORA',
                             style: kTextStyleSubTitleWhite,
                           ),
