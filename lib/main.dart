@@ -161,12 +161,6 @@ class InoraParceirosPreview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: SelectableText(
-                  AppLocalizations.of(context).cases,
-                  style: kTextStyleSubTitleWhite,
-                ),
-              ),
               SizedBox(
                 height: responsiveHeight * 0.02,
               ),
@@ -177,13 +171,6 @@ class InoraParceirosPreview extends StatelessWidget {
                       TextSpan(
                           text: AppLocalizations.of(context)
                               .osparticipantesdoecossistemada,
-                          style: kTextStyleDescriptionWhite),
-                      TextSpan(
-                        text: 'INORA ',
-                        style: kTextStyleDescriptionOrange,
-                      ),
-                      TextSpan(
-                          text: AppLocalizations.of(context).quesaoreferencia,
                           style: kTextStyleDescriptionWhite),
                     ],
                   ),
@@ -280,14 +267,6 @@ class InoraIdeiaPreview extends StatelessWidget {
                       Center(
                         child: RichText(
                           text: TextSpan(children: [
-                            TextSpan(
-                              text: '\n ${AppLocalizations.of(context).a}',
-                              style: kTextStyleDescriptionWhite,
-                            ),
-                            TextSpan(
-                              text: 'INORA ',
-                              style: kTextStyleDescriptionOrange,
-                            ),
                             TextSpan(
                               text: AppLocalizations.of(context).lema,
                               style: kTextStyleDescriptionWhite,
