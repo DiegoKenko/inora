@@ -8,6 +8,8 @@ import 'package:inora/header.dart';
 import 'package:inora/styles.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class InoraTrabalheConosco extends StatefulWidget {
   const InoraTrabalheConosco({Key? key}) : super(key: key);
 
@@ -51,7 +53,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                 child: Column(
                   children: [
                     SelectableText(
-                      'Faça parte da equipe!',
+                      AppLocalizations.of(context).trabalheconosco,
                       style: ratioVertical
                           ? kTextStyleTitleOrangeVertical
                           : kTextStyleTitleOrange,
@@ -170,10 +172,12 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                       child: InkWell(
                         onTap: () async {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
+                            SnackBar(
                               elevation: 20,
                               duration: Duration(seconds: 3),
-                              content: SelectableText('Enviando mensagem...'),
+                              content: SelectableText(
+                                AppLocalizations.of(context).enviandomensagem,
+                              ),
                             ),
                           );
                           await ContatoFirestore().addMensagem(
@@ -186,8 +190,9 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const SelectableText(
-                                    'Mensagem enviada com sucesso!'),
+                                title: SelectableText(
+                                  AppLocalizations.of(context).mensagemenviada,
+                                ),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -205,7 +210,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         },
                         child: Center(
                           child: Text(
-                            'ENVIAR',
+                            AppLocalizations.of(context).enviar,
                             style: kTextButtonTitle,
                           ),
                         ),

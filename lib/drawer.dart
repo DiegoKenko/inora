@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class InoraDrawer extends StatelessWidget {
   const InoraDrawer({
     Key? key,
@@ -36,7 +38,9 @@ class InoraDrawer extends StatelessWidget {
                 color: kWhite,
               ),
               textColor: kWhite,
-              title: const Text('Página inicial'),
+              title: Text(
+                AppLocalizations.of(context).inicio,
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/home');
               },
@@ -48,7 +52,9 @@ class InoraDrawer extends StatelessWidget {
                 color: kWhite,
               ),
               textColor: kWhite,
-              title: const Text('Contato'),
+              title: Text(
+                AppLocalizations.of(context).contato,
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/contato');
               },
@@ -60,7 +66,9 @@ class InoraDrawer extends StatelessWidget {
                 color: kWhite,
               ),
               textColor: kWhite,
-              title: const Text('Trabalhe Conosco'),
+              title: Text(
+                AppLocalizations.of(context).trabalheconosco,
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/trabalhe_conosco');
               },

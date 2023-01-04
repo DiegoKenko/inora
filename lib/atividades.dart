@@ -1,10 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_web_libraries_in_flutter, unused_import
-
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InoraAtividades extends StatefulWidget {
   const InoraAtividades({Key? key}) : super(key: key);
@@ -164,7 +161,7 @@ class CardAtividades extends StatelessWidget {
                       },
                       splashColor: kPrimaryColor,
                       child: Text(
-                        'Ver mais',
+                        AppLocalizations.of(context).vermais,
                         style: ratioVertical
                             ? kTextButtonTitleVertical
                             : kTextButtonTitle,

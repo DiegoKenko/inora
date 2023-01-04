@@ -163,7 +163,7 @@ class InoraParceirosPreview extends StatelessWidget {
             children: [
               Center(
                 child: SelectableText(
-                  'Cases',
+                  AppLocalizations.of(context).cases,
                   style: kTextStyleSubTitleWhite,
                 ),
               ),
@@ -175,14 +175,15 @@ class InoraParceirosPreview extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: 'Os participantes do ecossistema da ',
+                          text: AppLocalizations.of(context)
+                              .osparticipantesdoecossistemada,
                           style: kTextStyleDescriptionWhite),
                       TextSpan(
                         text: 'INORA ',
                         style: kTextStyleDescriptionOrange,
                       ),
                       TextSpan(
-                          text: 'que são referência no mercado.',
+                          text: AppLocalizations.of(context).quesaoreferencia,
                           style: kTextStyleDescriptionWhite),
                     ],
                   ),
@@ -269,7 +270,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                     children: [
                       Center(
                         child: SelectableText(
-                          'Tem uma nova idéia?',
+                          AppLocalizations.of(context).temumaideia,
                           style: kTextStyleSubTitleWhite,
                         ),
                       ),
@@ -280,7 +281,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                              text: '\n A ',
+                              text: '\n ${AppLocalizations.of(context).a}',
                               style: kTextStyleDescriptionWhite,
                             ),
                             TextSpan(
@@ -315,7 +316,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Text(
-                      'Entre em contato',
+                      AppLocalizations.of(context).entreemcontato,
                       style: ratioVertical
                           ? kTextStyleSubTitleWhiteVertical
                           : kTextStyleSubTitleWhite,
@@ -371,7 +372,7 @@ class InoraLemaPreview extends StatelessWidget {
                         padding: EdgeInsets.only(top: responsiveHeight * 0.05),
                         child: Center(
                           child: SelectableText(
-                            'Sobre a INORA',
+                            AppLocalizations.of(context).sobrenos,
                             style: kTextStyleTitleWhite,
                           ),
                         ),
@@ -382,14 +383,12 @@ class InoraLemaPreview extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text:
-                                    '\n\n\n A empresa nasceu da ideia de criar soluções para diversas áreas de atuação, '
-                                    'com foco em desenvolvimento de software. ',
+                                    '\n\n\n${AppLocalizations.of(context).inorahistoryideia}',
                                 style: kTextStyleDescriptionWhite,
                               ),
                               TextSpan(
                                 text:
-                                    '\n\n\n Acreditamos que a tecnologia pode ser uma grande aliada para '
-                                    'melhorar a qualidade de vida das pessoas e das empresas.',
+                                    '\n\n\n${AppLocalizations.of(context).inorahistorycrenca}',
                                 style: kTextStyleDescriptionWhite,
                               ),
                             ],

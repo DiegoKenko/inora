@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
   const InoraAppBar({
@@ -35,8 +36,10 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           Navigator.pushNamed(context, '/contato');
                         },
                         child: Center(
-                          child: Text('Contato',
-                              style: kTextStyleSubTitleHeaderOrange),
+                          child: Text(
+                            AppLocalizations.of(context).contato,
+                            style: kTextStyleSubTitleHeaderOrange,
+                          ),
                         ),
                       ),
                     ),
@@ -48,8 +51,10 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           Navigator.pushNamed(context, '/trabalhe_conosco');
                         },
                         child: Center(
-                          child: Text('Trabalhe conosco',
-                              style: kTextStyleSubTitleHeaderOrange),
+                          child: Text(
+                            AppLocalizations.of(context).trabalheconosco,
+                            style: kTextStyleSubTitleHeaderOrange,
+                          ),
                         ),
                       ),
                     ),

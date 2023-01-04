@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class InoraHeader extends StatefulWidget {
   const InoraHeader({Key? key}) : super(key: key);
 
@@ -50,7 +52,7 @@ class _InoraHeaderState extends State<InoraHeader> {
                   ),
                 ),
                 Text(
-                  'Desenvolvendo softwares com: ',
+                  '${AppLocalizations.of(context).desenvolvendosoftwarescom}:',
                   style: kTextStyleSubTitleHeaderBlackVertical,
                 ),
                 Padding(
@@ -120,8 +122,10 @@ class _InoraHeaderState extends State<InoraHeader> {
                           ),
                         ),
                       ),
-                      Text('Desenvolvendo softwares com: ',
-                          style: kTextStyleSubTitleHeaderBlack),
+                      Text(
+                        '${AppLocalizations.of(context).desenvolvendosoftwarescom}:',
+                        style: kTextStyleSubTitleHeaderBlackVertical,
+                      ),
                       StreamBuilder(
                           stream: Stream.periodic(
                               const Duration(milliseconds: 1800)),
