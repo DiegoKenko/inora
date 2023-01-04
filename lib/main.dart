@@ -250,8 +250,11 @@ class InoraIdeiaPreview extends StatelessWidget {
             vertical: responsiveHeight * 0.01,
           ),
           width: double.infinity,
-          height:
-              ratioVertical ? responsiveHeight * 0.7 : responsiveHeight * 0.2,
+          height: ratioVertical
+              ? responsiveHeight * 0.7
+              : responsiveHeight * 0.2 > 300
+                  ? responsiveHeight * 0.2
+                  : 300,
           color: kBlack,
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
@@ -347,7 +350,11 @@ class InoraLemaPreview extends StatelessWidget {
             vertical: responsiveHeight * 0.02,
           ),
           width: double.infinity,
-          height: ratioVertical ? responsiveHeight : responsiveHeight * 0.6,
+          height: ratioVertical
+              ? responsiveHeight
+              : responsiveHeight * 0.6 > 600
+                  ? responsiveHeight * 0.6
+                  : 600,
           color: kPrimaryColor,
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,

@@ -32,6 +32,9 @@ class _InoraHeaderState extends State<InoraHeader> {
         child: ClipPath(
           clipper: HeaderClipper(),
           child: Container(
+            width: double.infinity,
+            height:
+                ratioVertical ? responsiveHeight * 0.7 : responsiveHeight * 0.3,
             color: kHeaderGrey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,11 +107,16 @@ class _InoraHeaderState extends State<InoraHeader> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.asset(
-                            imagens['inora_black']!,
-                            height: responsiveHeight * 0.2,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/home');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Image.asset(
+                              imagens['inora_black']!,
+                              height: responsiveHeight * 0.2,
+                            ),
                           ),
                         ),
                       ),
