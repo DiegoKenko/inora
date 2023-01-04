@@ -1,9 +1,6 @@
-// ignore_for_file: unused_local_variable, sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
-import 'package:responsive_styles/responsive_styles.dart';
 
 class InoraHeader extends StatefulWidget {
   const InoraHeader({Key? key}) : super(key: key);
@@ -15,79 +12,130 @@ class InoraHeader extends StatefulWidget {
 class _InoraHeaderState extends State<InoraHeader> {
   @override
   Widget build(BuildContext context) {
-    var responsive = Responsive(context);
     var responsiveHeight = MediaQuery.of(context).size.height;
     var responsiveWidth = MediaQuery.of(context).size.width;
     bool ratioVertical = responsiveHeight > responsiveWidth;
+    int pos = 0;
+    List<String> switchers = [
+      'Tecnologia',
+      'Segurança',
+      'Inovação',
+      'Conhecimento',
+      'Qualidade',
+      'Transformação Digital',
+      'Praticidade',
+    ];
 
-    if (!ratioVertical) {
-      return ClipPath(
-        clipper: HeaderClipper(),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              color: kHeaderGrey,
-              height: responsiveHeight * 0.5,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          child: Row(),
-                          top: responsiveHeight * 0.1,
-                          left: responsiveWidth * 0.1,
-                        ),
-                      ],
+    if (ratioVertical) {
+      return Container(
+        color: kBlack,
+        child: ClipPath(
+          clipper: HeaderClipper(),
+          child: Container(
+            color: kHeaderGrey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                      imagens['inora_black']!,
+                      height: responsiveHeight * 0.2,
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
+                ),
+                Text(
+                  'Desenvolvendo softwares com: ',
+                  style: kTextStyleSubTitleHeaderBlackVertical,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: responsiveHeight * 0.1,
+                    left: responsiveWidth * 0.1,
+                    right: responsiveWidth * 0.1,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Center(
-                      child: Image.asset(
-                        imagens['appTrans']!,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                ],
-              ),
+                  child: StreamBuilder(
+                      stream:
+                          Stream.periodic(const Duration(milliseconds: 1800)),
+                      builder: (context, snapshot) {
+                        pos++;
+                        if (pos > switchers.length - 1) {
+                          pos = 0;
+                        }
+                        return AnimatedSwitcher(
+                          transitionBuilder: (child, animation) =>
+                              ScaleTransition(
+                            scale: animation,
+                            child: child,
+                          ),
+                          duration: const Duration(milliseconds: 200),
+                          child: Center(
+                            child: Text(
+                              switchers[pos],
+                              style: kTextStyleTitleHeaderOrangeVertical,
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
             ),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: kBlack,
-            ),
-          ],
+          ),
         ),
       );
     } else {
       return Container(
-        color: kWhite,
+        color: kBlack,
         child: ClipPath(
           clipper: HeaderClipper(),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                width: double.infinity,
                 color: kHeaderGrey,
+                height: responsiveHeight * 0.5,
                 child: Center(
-                  child: Image.asset(
-                    imagens['appTrans']!,
-                    fit: BoxFit.cover,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Image.asset(
+                            imagens['inora_black']!,
+                            height: responsiveHeight * 0.2,
+                          ),
+                        ),
+                      ),
+                      Text('Desenvolvendo softwares com: ',
+                          style: kTextStyleSubTitleHeaderBlack),
+                      StreamBuilder(
+                          stream: Stream.periodic(
+                              const Duration(milliseconds: 1800)),
+                          builder: (context, snapshot) {
+                            pos++;
+                            if (pos > switchers.length - 1) {
+                              pos = 0;
+                            }
+                            return AnimatedSwitcher(
+                              transitionBuilder: (child, animation) =>
+                                  ScaleTransition(
+                                scale: animation,
+                                child: child,
+                              ),
+                              duration: const Duration(milliseconds: 200),
+                              child: Text(
+                                switchers[pos],
+                                style: kTextStyleTitleHeaderOrange,
+                              ),
+                            );
+                          }),
+                    ],
                   ),
                 ),
               ),
@@ -107,18 +155,14 @@ class _InoraHeaderState extends State<InoraHeader> {
 class HeaderClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
     Path path0 = Path();
-    path0.quadraticBezierTo(size.width * 0.03, size.height * 0.83,
-        size.width * 0.07, size.height * 0.85);
-    path0.cubicTo(size.width * 0.09, size.height * 0.95, size.width * 0.89,
-        size.height * 0.87, size.width * 0.9, size.height * 0.8);
-    path0.quadraticBezierTo(size.width * 0.97, size.height * 0.78, size.width,
-        size.height * 0.0015);
+    path0.lineTo(size.width, 0);
+    path0.lineTo(size.width, size.height * 0.95);
+    path0.quadraticBezierTo(
+        size.width, size.height, size.width, size.height * 0.9);
+    path0.quadraticBezierTo(
+        size.width * 0.5, size.height, 0, size.height * 0.9);
+    path0.quadraticBezierTo(0, size.height * 0.95, 0, size.height * 0.05);
     path0.close();
 
     return path0;

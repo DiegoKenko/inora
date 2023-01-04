@@ -29,7 +29,7 @@ class _InoraContatoState extends State<InoraContato> {
     TextEditingController areaController = TextEditingController();
     return Scaffold(
       drawer: ratioVertical ? const InoraDrawer() : null,
-      backgroundColor: kWhite,
+      backgroundColor: kBlack,
       appBar: const InoraAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -48,7 +48,9 @@ class _InoraContatoState extends State<InoraContato> {
                         padding: const EdgeInsets.all(8.0),
                         child: SelectableText(
                           'Entre em contato com a gente!',
-                          style: kTextStyleTitleBlack,
+                          style: ratioVertical
+                              ? kTextStyleTitleOrangeVertical
+                              : kTextStyleTitleOrange,
                         ),
                       ),
                     ),
@@ -65,7 +67,8 @@ class _InoraContatoState extends State<InoraContato> {
                                 label: const Icon(
                                   Icons.person,
                                 ),
-                                border: const OutlineInputBorder(),
+                                fillColor: kWhite,
+                                filled: true,
                               ),
                               validator: (value) {
                                 if (value == null) {
@@ -97,9 +100,8 @@ class _InoraContatoState extends State<InoraContato> {
                                     Icons.phone,
                                   ),
                                   hintStyle: kTextHintContact,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                                  fillColor: kWhite,
+                                  filled: true,
                                 ),
                                 validator: (value) {
                                   if (value == null) {
@@ -122,7 +124,8 @@ class _InoraContatoState extends State<InoraContato> {
                                 label: const Icon(
                                   Icons.mail,
                                 ),
-                                border: const OutlineInputBorder(),
+                                fillColor: kWhite,
+                                filled: true,
                               ),
                               validator: (value) {
                                 if (value == null) {
@@ -139,12 +142,13 @@ class _InoraContatoState extends State<InoraContato> {
                             child: TextFormField(
                               controller: descricaoController,
                               decoration: InputDecoration(
+                                fillColor: kWhite,
+                                filled: true,
                                 hintText: 'idéia, sugestão, crítica, etc',
                                 hintStyle: kTextHintContact,
                                 label: const Icon(
                                   Icons.star,
                                 ),
-                                border: const OutlineInputBorder(),
                               ),
                               validator: (value) {
                                 if (value == null) {
@@ -167,7 +171,8 @@ class _InoraContatoState extends State<InoraContato> {
                                 label: const Icon(
                                   Icons.work,
                                 ),
-                                border: const OutlineInputBorder(),
+                                fillColor: kWhite,
+                                filled: true,
                               ),
                               validator: (value) {
                                 if (value == null) {

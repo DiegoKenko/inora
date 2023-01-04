@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
 class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -17,28 +18,6 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: ratioVertical ? true : false,
       backgroundColor: kBlack,
-      centerTitle: true,
-      title: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 2,
-        ),
-        child: Flex(
-          direction: ratioVertical ? Axis.vertical : Axis.horizontal,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/home');
-              },
-              child: Text(
-                '( em construção ) ',
-                style: kTextStyleSubTitleWhite,
-              ),
-            ),
-          ],
-        ),
-      ),
       actions: [
         !ratioVertical
             ? Padding(
@@ -53,7 +32,7 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, '/contato');
+                          Navigator.pushNamed(context, '/contato');
                         },
                         child: Center(
                           child: Text('Contato',
@@ -66,10 +45,10 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, '/parceiros');
+                          Navigator.pushNamed(context, '/trabalhe_conosco');
                         },
                         child: Center(
-                          child: Text('Parceiros',
+                          child: Text('Trabalhe conosco',
                               style: kTextStyleSubTitleHeaderOrange),
                         ),
                       ),
@@ -79,12 +58,11 @@ class InoraAppBar extends StatelessWidget with PreferredSizeWidget {
                           horizontal: responsiveWidth * 0.01),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/trabalhe_conosco');
+                          Navigator.pushNamed(context, '/home');
                         },
-                        child: Center(
-                          child: Text('Trabalhe conosco',
-                              style: kTextStyleSubTitleHeaderOrange),
+                        child: Image.asset(
+                          fit: BoxFit.contain,
+                          imagens['inora_logo_white']!,
                         ),
                       ),
                     ),

@@ -26,7 +26,7 @@ class InoraAtividadesState extends State<InoraAtividades> {
         width: double.infinity,
         padding: EdgeInsets.symmetric(
           vertical:
-              ratioVertical ? responsiveHeight * 0.15 : responsiveHeight * 0.1,
+              ratioVertical ? responsiveHeight * 0.15 : responsiveHeight * 0.08,
           horizontal:
               ratioVertical ? responsiveWidth * 0.1 : responsiveWidth * 0.05,
         ),
@@ -78,75 +78,104 @@ class CardAtividades extends StatelessWidget {
         vertical:
             ratioVertical ? responsiveHeight * 0.02 : responsiveWidth * 0.01,
       ),
-      child: Padding(
-        padding: EdgeInsets.only(bottom: responsiveHeight * 0.1),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flex(
-              direction: ratioVertical ? Axis.vertical : Axis.horizontal,
-              children: [
-                Image.asset(
-                  atividades['imagem'],
-                  width: ratioVertical
-                      ? responsiveWidth * 0.5
-                      : responsiveWidth * 0.2,
-                  height: ratioVertical
-                      ? responsiveHeight * 0.3
-                      : responsiveHeight * 0.15,
-                ),
-                ratioVertical
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                          top: responsiveHeight * 0.01,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Flex(
+            direction: ratioVertical ? Axis.vertical : Axis.horizontal,
+            children: [
+              Image.asset(
+                atividades['imagem'],
+                width: ratioVertical
+                    ? responsiveWidth * 0.5
+                    : responsiveWidth * 0.2,
+                height: ratioVertical
+                    ? responsiveHeight * 0.3
+                    : responsiveHeight * 0.15,
+              ),
+              ratioVertical
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                        top: responsiveHeight * 0.01,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 30,
+                              horizontal: responsiveWidth * 0.08,
+                            ),
+                            child: SelectableText(
+                              atividades['nome'],
+                              style: kTextStyleTitleOrangeVertical,
+                            ),
+                          ),
+                          Topicos(topicos: atividades['topicos']),
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: 30,
-                                horizontal: responsiveWidth * 0.08,
+                                vertical: 15,
+                                horizontal: responsiveWidth * 0.03,
                               ),
                               child: SelectableText(
                                 atividades['nome'],
-                                style: ratioVertical
-                                    ? kTextStyleTitleBlackVertical
-                                    : kTextStyleTitleBlackLarge,
+                                style: kTextStyleTitleOrangeLarge,
                               ),
                             ),
-                            Topicos(topicos: atividades['topicos']),
-                          ],
-                        ),
-                      )
-                    : Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 30,
-                                  horizontal: responsiveWidth * 0.03,
-                                ),
-                                child: SelectableText(
-                                  atividades['nome'],
-                                  style: kTextStyleTitleWhiteLarge,
-                                ),
-                              ),
-                            ),
-                            Topicos(topicos: atividades['topicos']),
-                          ],
-                        ),
+                          ),
+                          Topicos(topicos: atividades['topicos']),
+                        ],
                       ),
-              ],
-            ),
-          ],
-        ),
+                    ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(vertical: responsiveHeight * 0.02),
+                child: Align(
+                  alignment: ratioVertical
+                      ? Alignment.bottomCenter
+                      : Alignment.bottomRight,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ratioVertical
+                          ? responsiveWidth * 0.03
+                          : responsiveWidth * 0.01,
+                      vertical: responsiveHeight * 0.01,
+                    ),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/contato');
+                      },
+                      splashColor: kPrimaryColor,
+                      child: Text(
+                        'Ver mais',
+                        style: ratioVertical
+                            ? kTextButtonTitleVertical
+                            : kTextButtonTitle,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -172,11 +201,11 @@ class Topicos extends StatelessWidget {
       children: topicos.map(
         (String e) {
           return Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(4.0),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Icon(
                     Icons.arrow_right_rounded,
                     color: kPrimaryColor,
@@ -186,7 +215,9 @@ class Topicos extends StatelessWidget {
                 Expanded(
                   child: SelectableText(
                     e,
-                    style: ratioVertical ? kTextTopicVertical : kTextTopic,
+                    style: ratioVertical
+                        ? kTextStyleDescriptionWhite
+                        : kTextStyleDescriptionWhite,
                   ),
                 ),
               ],
@@ -202,14 +233,13 @@ class AtividadesClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path0 = Path();
-    path0.moveTo(0, size.height * 0.02);
+    path0.moveTo(0, size.height * 0.05);
     path0.quadraticBezierTo(
         size.width * 0.5, 0, size.width, size.height * 0.05);
     path0.quadraticBezierTo(
-        size.width, size.height * 0.75, size.width, size.height * 0.9);
-    path0.quadraticBezierTo(
-        size.width * 0.5, size.height, 0, size.height * 0.95);
-    path0.quadraticBezierTo(0, size.height * 0.9, 0, size.height * 0.05);
+        size.width, size.height * 0.75, size.width, size.height);
+    path0.quadraticBezierTo(size.width * 0.5, size.height, 0, size.height);
+    path0.quadraticBezierTo(0, size.height * 0.95, 0, size.height * 0.05);
     path0.close();
 
     return path0;

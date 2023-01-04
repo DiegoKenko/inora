@@ -1,29 +1,37 @@
 var parceiros = [
   [
-    'Canguru',
-    'images/canguru.png',
+    'canguru',
+    imagens['canguru'],
     Uri.http(
       'cuidadorescanguru.com.br',
     )
   ],
   [
-    'Idea',
-    'images/idea1.png',
+    'idea',
+    imagens['idea1'],
     Uri.http(
       'www.instagram.com',
       'ideafilmes',
     )
   ],
   [
-    'Apple',
-    'images/apple.png',
+    'gama',
+    imagens['gama'],
+    Uri.http(
+      'www.instagram.com',
+      '_gamadigital',
+    )
+  ],
+  [
+    'apple',
+    imagens['apple'],
     Uri.http(
       'www.apple.com',
     )
   ],
   [
-    'Firebase',
-    'images/firebase.png',
+    'firebase',
+    imagens['firebase'],
     Uri.http('firebase.google.com'),
   ],
 ];
@@ -44,6 +52,11 @@ Map<String, String> imagens = {
   'world_web': 'images/world_web.png',
   'prothues': 'images/prothues.png',
   'diego': 'images/diego.jpg',
+  'inora_white': 'images/inora_white.png',
+  'inora_black': 'images/inora_black.png',
+  'inora_logo_white': 'images/inora_logo_white.png',
+  'inora_logo_black': 'images/inora_logo_black.png',
+  'gama': 'images/gama.png',
 };
 
 List<Map<String, dynamic>> atividades = [
@@ -51,31 +64,31 @@ List<Map<String, dynamic>> atividades = [
     'nome': 'APLICATIVOS MÓVEIS',
     'imagem': 'images/app.png',
     'topicos': [
-      'Desenvolvimento de aplicativos sob demanda',
-      'Leve e rápido',
-      'Integrado com sistemas ERP da sua empresa',
-      'Interface intuitiva',
-      'Disponibilidade para Android e IOS',
+      'Desenvolvimento de aplicativos sob demanda.',
+      'Leve e rápido.',
+      'Integrado com outros sistemas.',
+      'Interface intuitiva.',
+      'Disponibilidade para Android e IOS.',
     ]
   },
   {
     'nome': 'WEBSITES',
     'imagem': 'images/website.png',
     'topicos': [
-      'Desenvolvimento de websites sob demanda',
-      'Responsivo para dispositivos móveis',
-      'Interface intuitiva',
-      'Integrado com sistemas ERP da sua empresa',
+      'Desenvolvimento de websites sob demanda.',
+      'Responsivo para dispositivos móveis.',
+      'Interface intuitiva.',
+      'Integrado com sistemas.',
     ]
   },
   {
     'nome': 'PROTHEUS',
     'imagem': 'images/protheus.png',
     'topicos': [
-      'Soluções customizadas para o ERP Protheus',
-      'Integração com sistemas de terceiros',
-      'Automação de processos',
-      'Infraestrutura',
+      'Soluções customizadas para o ERP Protheus.',
+      'Integração com outros sistemas.',
+      'Automação de processos.',
+      'Infraestrutura.',
     ]
   },
 ];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inora/mock.dart';
 import 'package:inora/styles.dart';
 
 class InoraFooter extends StatefulWidget {
@@ -19,22 +20,35 @@ class _InoraFooterState extends State<InoraFooter> {
       clipper: FooterClipper(),
       child: InkWell(
         onTap: () {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushNamed(context, '/home');
         },
         child: Container(
           width: double.infinity,
           height: responsiveHeight * 0.07,
-          color: kPrimaryColor,
+          color: kWhite,
           child: Center(
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.pushNamed(context, '/home');
               },
-              child: Text(
-                '© 2023 Inora Softwares Ltda.',
-                style: ratioVertical
-                    ? kTextStyleFooterBlackVertical
-                    : kTextStyleFooterBlack,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      imagens['inora_logo_black']!,
+                      height: responsiveHeight * 0.05,
+                    ),
+                  ),
+                  Text(
+                    '© 2023 INORA Softwares Ltda.',
+                    style: ratioVertical
+                        ? kTextStyleFooterBlackVertical
+                        : kTextStyleFooterBlack,
+                  ),
+                ],
               ),
             ),
           ),
@@ -53,19 +67,11 @@ class FooterClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path0 = Path();
-    path0.moveTo(size.width * 0.0008333, size.height);
+    path0.moveTo(0, size.height);
     path0.lineTo(size.width, size.height);
-    path0.quadraticBezierTo(size.width, size.height * 0.0446429,
-        size.width * 0.9100000, size.height * 0.0557143);
-    path0.cubicTo(
-        size.width * 0.8529167,
-        size.height * 0.0564286,
-        size.width * 0.0504167,
-        size.height * 0.0650000,
-        size.width * 0.0491667,
-        size.height * 0.1385714);
-    path0.quadraticBezierTo(size.width * 0.0279167, size.height * 0.1182143,
-        size.width * 0.0008333, size.height);
+    path0.quadraticBezierTo(size.width, 0, size.width * 0.9, 0);
+    path0.lineTo(size.width * 0.1, 0);
+    path0.quadraticBezierTo(0, 0, 0, size.height);
     path0.close();
     return path0;
   }

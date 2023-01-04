@@ -27,7 +27,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
 
     return Scaffold(
       drawer: ratioVertical ? const InoraDrawer() : null,
-      backgroundColor: kWhite,
+      backgroundColor: kBlack,
       appBar: const InoraAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,14 +47,14 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                       ),
                 width: double.infinity,
                 height: responsiveHeight * 0.7,
-                color: kWhite,
+                color: kBlack,
                 child: Column(
                   children: [
                     SelectableText(
                       'Faça parte da equipe!',
                       style: ratioVertical
-                          ? kTextStyleTitleBlackVertical
-                          : kTextStyleTitleBlack,
+                          ? kTextStyleTitleOrangeVertical
+                          : kTextStyleTitleOrange,
                     ),
                     SizedBox(
                       height: responsiveHeight * 0.025,
@@ -68,9 +68,8 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         label: const Icon(
                           Icons.person,
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                        fillColor: kWhite,
+                        filled: true,
                       ),
                       validator: (value) {
                         if (value == null) {
@@ -96,14 +95,13 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                               inputFormatters: const <TextInputFormatter>[],
                               controller: emailController,
                               decoration: InputDecoration(
-                                hintText: 'e-mail',
+                                hintText: 'E-mail',
                                 hintStyle: kTextHintContact,
                                 label: const Icon(
                                   Icons.mail,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                fillColor: kWhite,
+                                filled: true,
                               ),
                               validator: (value) {
                                 if (value == null) {
@@ -132,14 +130,13 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                               ],
                               style: kTextLabelContact,
                               decoration: InputDecoration(
-                                hintText: 'telefone',
+                                hintText: 'Telefone',
                                 label: const Icon(
                                   Icons.phone,
                                 ),
                                 hintStyle: kTextHintContact,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                fillColor: kWhite,
+                                filled: true,
                               ),
                               validator: (value) {
                                 if (value == null) {
@@ -167,7 +164,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                           color: kBlack,
                           width: 2,
                         ),
-                        color: kWhite,
+                        color: kBlack,
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: InkWell(
@@ -183,7 +180,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                             nome: nomeController.text,
                             email: emailController.text,
                             telefone: telefoneController.text,
-                            descricao: ' trabalhe conosco',
+                            descricao: 'Trabalhe conosco',
                           );
                           showDialog(
                             context: context,
@@ -209,7 +206,7 @@ class _InoraTrabalheConoscoState extends State<InoraTrabalheConosco> {
                         child: Center(
                           child: Text(
                             'ENVIAR',
-                            style: kTextStyleTitleOrange,
+                            style: kTextButtonTitle,
                           ),
                         ),
                       ),

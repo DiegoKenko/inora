@@ -16,12 +16,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inora/footer.dart';
 import 'package:inora/header.dart';
 import 'package:inora/contato.dart';
-import 'package:inora/parceiros.dart';
+import 'package:inora/mock.dart';
 import 'package:inora/diego.dart';
 import 'package:inora/styles.dart';
 import 'package:inora/trabalhe_conosco.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -63,7 +64,6 @@ class _InoraState extends State<Inora> {
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => Home(),
         '/contato': (BuildContext context) => InoraContato(),
-        '/parceiros': (BuildContext context) => InoraParceiros(),
         '/trabalhe_conosco': (BuildContext context) => InoraTrabalheConosco(),
         '/diego': (BuildContext context) => Diego(),
       },
@@ -82,7 +82,7 @@ class _InoraState extends State<Inora> {
           800: Color(0xDDF2650A),
           900: Color(0xFFF2650A),
         }),
-        cardColor: Colors.white,
+        cardColor: kBlack,
       ),
     );
   }
@@ -117,7 +117,7 @@ class HomeState extends State<Home> {
     return Scaffold(
       drawer: ratioVertical ? InoraDrawer() : null,
       appBar: InoraAppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: kBlack,
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -125,8 +125,8 @@ class HomeState extends State<Home> {
             children: [
               InoraHeader(),
               InoraIdeiaPreview(),
-              InoraLemaPreview(),
               InoraAtividades(),
+              InoraLemaPreview(),
               InoraParceirosPreview(),
               InoraFooter(),
             ],
@@ -150,71 +150,83 @@ class InoraParceirosPreview extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: responsiveWidth * 0.1,
-        vertical: responsiveHeight * 0.02,
+        vertical: responsiveHeight * 0.05,
       ),
       width: double.infinity,
-      height: ratioVertical ? responsiveHeight * 0.5 : responsiveHeight * 0.2,
-      color: kWhite,
-      child: Flex(
-        direction: ratioVertical ? Axis.vertical : Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: SelectableText(
-                      'Cases',
-                      style: kTextStyleSubTitleBlack,
-                    ),
-                  ),
-                  SizedBox(
-                    height: responsiveHeight * 0.01,
-                  ),
-                  Center(
-                    child: SelectableText(
-                      'Os participantes do ecossistema da Inora que são referência no mercado.',
-                      style: kTextStyleDescriptionBlack,
-                    ),
-                  ),
-                ],
+      color: kBlack,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: SelectableText(
+                  'Cases',
+                  style: kTextStyleSubTitleWhite,
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/parceiros');
-                },
-                splashColor: kPrimaryColor,
-                hoverColor: kBlack,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: responsiveWidth * 0.05,
-                    vertical: responsiveHeight * 0.02,
-                  ),
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Text(
-                    'Conheça nossos parceiros',
-                    style: ratioVertical
-                        ? kTextStyleSubTitleBlackVertical
-                        : kTextStyleSubTitleBlack,
+              SizedBox(
+                height: responsiveHeight * 0.02,
+              ),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'Os participantes do ecossistema da ',
+                          style: kTextStyleDescriptionWhite),
+                      TextSpan(
+                        text: 'INORA ',
+                        style: kTextStyleDescriptionOrange,
+                      ),
+                      TextSpan(
+                          text: 'que são referência no mercado.',
+                          style: kTextStyleDescriptionWhite),
+                    ],
                   ),
                 ),
               ),
-            ),
+              SizedBox(
+                height: responsiveHeight * 0.1,
+              ),
+              Center(
+                child: SingleChildScrollView(
+                  scrollDirection:
+                      ratioVertical ? Axis.vertical : Axis.horizontal,
+                  child: ratioVertical
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: parceiros
+                              .map(
+                                (e) => CardParceiro(
+                                    ratioVertical: ratioVertical,
+                                    responsiveWidth: responsiveWidth,
+                                    responsiveHeight: responsiveHeight,
+                                    parceiro: e),
+                              )
+                              .toList(),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: parceiros
+                              .map(
+                                (e) => CardParceiro(
+                                    ratioVertical: ratioVertical,
+                                    responsiveWidth: responsiveWidth,
+                                    responsiveHeight: responsiveHeight,
+                                    parceiro: e),
+                              )
+                              .toList(),
+                        ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -240,13 +252,12 @@ class InoraIdeiaPreview extends StatelessWidget {
           width: double.infinity,
           height:
               ratioVertical ? responsiveHeight * 0.7 : responsiveHeight * 0.2,
-          color: kWhite,
+          color: kBlack,
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -255,8 +266,8 @@ class InoraIdeiaPreview extends StatelessWidget {
                     children: [
                       Center(
                         child: SelectableText(
-                          'Tem uma idéia inovadora?',
-                          style: kTextStyleSubTitleBlack,
+                          'Tem uma nova idéia?',
+                          style: kTextStyleSubTitleWhite,
                         ),
                       ),
                       SizedBox(
@@ -267,7 +278,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                           text: TextSpan(children: [
                             TextSpan(
                               text: '\n A ',
-                              style: kTextStyleDescriptionBlack,
+                              style: kTextStyleDescriptionWhite,
                             ),
                             TextSpan(
                               text: 'INORA ',
@@ -275,7 +286,7 @@ class InoraIdeiaPreview extends StatelessWidget {
                             ),
                             TextSpan(
                               text: AppLocalizations.of(context).lema,
-                              style: kTextStyleDescriptionBlack,
+                              style: kTextStyleDescriptionWhite,
                             ),
                           ]),
                         ),
@@ -284,30 +295,27 @@ class InoraIdeiaPreview extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, '/contato');
-                    },
-                    splashColor: kPrimaryColor,
-                    hoverColor: kBlack,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsiveWidth * 0.03,
-                        vertical: responsiveHeight * 0.02,
-                      ),
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Text(
-                        'Entre em contato',
-                        style: ratioVertical
-                            ? kTextStyleSubTitleBlackVertical
-                            : kTextStyleSubTitleBlack,
-                      ),
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/contato');
+                  },
+                  splashColor: kPrimaryColor,
+                  hoverColor: kBlack,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: responsiveWidth * 0.01,
+                      vertical: responsiveHeight * 0.02,
+                    ),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Text(
+                      'Entre em contato',
+                      style: ratioVertical
+                          ? kTextStyleSubTitleWhiteVertical
+                          : kTextStyleSubTitleWhite,
                     ),
                   ),
                 ),
@@ -336,12 +344,11 @@ class InoraLemaPreview extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: responsiveWidth * 0.15,
-            vertical: responsiveHeight * 0.01,
+            vertical: responsiveHeight * 0.02,
           ),
           width: double.infinity,
-          height:
-              ratioVertical ? responsiveHeight * 0.9 : responsiveHeight * 0.35,
-          color: kPrimaryColor.withOpacity(0.8),
+          height: ratioVertical ? responsiveHeight : responsiveHeight * 0.6,
+          color: kPrimaryColor,
           child: Flex(
             direction: ratioVertical ? Axis.vertical : Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -358,7 +365,7 @@ class InoraLemaPreview extends StatelessWidget {
                         child: Center(
                           child: SelectableText(
                             'Sobre a INORA',
-                            style: kTextStyleSubTitleWhite,
+                            style: kTextStyleTitleWhite,
                           ),
                         ),
                       ),
@@ -370,13 +377,13 @@ class InoraLemaPreview extends StatelessWidget {
                                 text:
                                     '\n\n\n A empresa nasceu da ideia de criar soluções para diversas áreas de atuação, '
                                     'com foco em desenvolvimento de software. ',
-                                style: kTextStyleDescriptionBlack,
+                                style: kTextStyleDescriptionWhite,
                               ),
                               TextSpan(
                                 text:
                                     '\n\n\n Acreditamos que a tecnologia pode ser uma grande aliada para '
                                     'melhorar a qualidade de vida das pessoas e das empresas.',
-                                style: kTextStyleDescriptionBlack,
+                                style: kTextStyleDescriptionWhite,
                               ),
                             ],
                           ),
@@ -404,14 +411,13 @@ class LemaClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path0 = Path();
-    path0.moveTo(0, size.height * 0.18);
+    path0.moveTo(0, size.height * 0.05);
     path0.quadraticBezierTo(
         size.width * 0.5, 0, size.width, size.height * 0.05);
     path0.quadraticBezierTo(
-        size.width, size.height * 0.9, size.width, size.height);
-    path0.quadraticBezierTo(
-        size.width * 0.5, size.height, 0, size.height * 0.85);
-    path0.quadraticBezierTo(0, size.height, 0, size.height * 0.05);
+        size.width, size.height * 0.75, size.width, size.height);
+    path0.lineTo(size.width, size.height);
+    path0.lineTo(0, size.height);
     path0.close();
     return path0;
   }
@@ -420,69 +426,43 @@ class LemaClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class InoraDivider extends StatefulWidget {
-  const InoraDivider({
+class CardParceiro extends StatelessWidget {
+  const CardParceiro({
     Key? key,
+    required this.ratioVertical,
+    required this.responsiveWidth,
+    required this.responsiveHeight,
+    required this.parceiro,
   }) : super(key: key);
 
-  @override
-  State<InoraDivider> createState() => _InoraDividerState();
-}
-
-class _InoraDividerState extends State<InoraDivider>
-    with SingleTickerProviderStateMixin {
-  final Duration duration = const Duration(seconds: 2);
-  late Animation _colorTween;
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        seconds: 30,
-      ),
-    )..repeat();
-
-    _colorTween = ColorTween(
-      begin: kPrimaryColor,
-      end: kPrimaryColor.withOpacity(0.1),
-    ).animate(
-      _animationController,
-    );
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  final bool ratioVertical;
+  final double responsiveWidth;
+  final double responsiveHeight;
+  final List<dynamic> parceiro;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _colorTween,
-      builder: (context, child) {
-        return Container(
+    return InkWell(
+      onTap: () => launchUrl(parceiro[2]),
+      child: Center(
+        child: Container(
+          height:
+              ratioVertical ? responsiveHeight * 0.15 : responsiveHeight * 0.1,
+          width: ratioVertical ? responsiveWidth * 0.6 : responsiveWidth * 0.1,
           margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.025,
+            vertical: responsiveHeight * 0.01,
+            horizontal: responsiveWidth * 0.01,
           ),
-          height: MediaQuery.of(context).size.height * 0.005,
-          width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                _colorTween.value,
-                Colors.white,
-              ],
-            ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(40),
           ),
-        );
-      },
+          child: Image.asset(
+            parceiro[1],
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
     );
   }
 }

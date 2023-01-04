@@ -14,22 +14,43 @@ final kTextStyleSubTitleBlack = TextStyle(
   fontStyle: FontStyle.italic,
   color: kBlack,
 );
+final kTextStyleSubTitleWhite = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 25,
+  fontStyle: FontStyle.italic,
+  color: kWhite,
+);
 final kTextStyleSubTitleBlackVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 22,
   fontStyle: FontStyle.italic,
   color: kBlack,
 );
-final kTextStyleSubTitleWhite = TextStyle(
+final kTextStyleSubTitleWhiteVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
-  fontSize: 28,
+  fontSize: 18,
   fontStyle: FontStyle.italic,
   color: kWhite,
 );
 
+final kTextStyleSubTitleHeaderBlack = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 16,
+  letterSpacing: 2,
+  color: kBlack,
+);
+
+final kTextStyleSubTitleHeaderBlackVertical = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 14,
+  letterSpacing: 2,
+  color: kBlack,
+);
+
 final kTextStyleSubTitleHeaderOrange = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
-  fontSize: 20,
+  fontSize: 16,
+  letterSpacing: 2,
   color: kPrimaryColor,
 );
 
@@ -51,7 +72,6 @@ final kTextStyleTitleBlackVertical = TextStyle(
 final kTextStyleTitleOrange = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 32,
-  fontWeight: FontWeight.bold,
   color: kPrimaryColor,
   letterSpacing: 4,
 );
@@ -62,10 +82,15 @@ final kTextStyleTitleWhite = TextStyle(
   color: kWhite,
   letterSpacing: 4,
 );
+final kTextStyleTitleWhiteVertical = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 28,
+  color: kWhite,
+  letterSpacing: 4,
+);
 final kTextStyleTitleOrangeVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 28,
-  fontWeight: FontWeight.bold,
   color: kPrimaryColor,
   letterSpacing: 4,
 );
@@ -84,9 +109,23 @@ final kTextStyleTitleWhiteLarge = TextStyle(
 );
 
 final kTextStyleTitleOrangeLarge = TextStyle(
-  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontFamily: GoogleFonts.raleway().fontFamily,
   fontSize: 40,
   letterSpacing: 3,
+  color: kPrimaryColor,
+);
+
+final kTextStyleTitleHeaderOrange = TextStyle(
+  fontFamily: GoogleFonts.indieFlower().fontFamily,
+  fontSize: 45,
+  letterSpacing: 4,
+  color: kPrimaryColor,
+);
+
+final kTextStyleTitleHeaderOrangeVertical = TextStyle(
+  fontFamily: GoogleFonts.indieFlower().fontFamily,
+  fontSize: 35,
+  letterSpacing: 4,
   color: kPrimaryColor,
 );
 
@@ -103,28 +142,26 @@ final kTextHintContact = TextStyle(
 
 final kTextTopic = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
-  fontSize: 25,
-  fontStyle: FontStyle.italic,
-  color: Colors.black,
+  fontSize: 21,
+  color: kWhite,
   letterSpacing: 3,
 );
 final kTextTopicVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
-  fontSize: 20,
-  fontStyle: FontStyle.italic,
-  color: Colors.black,
+  fontSize: 18,
+  color: kWhite,
 );
 final kTextStyleFooterBlackVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
-  fontSize: 18,
   fontStyle: FontStyle.italic,
-  color: Colors.black,
+  fontSize: 18,
+  color: kBlack,
 );
 final kTextStyleFooterBlack = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 20,
   fontStyle: FontStyle.italic,
-  color: Colors.black,
+  color: kBlack,
 );
 
 final kTextStyleObsOrange = TextStyle(
@@ -137,7 +174,13 @@ final kTextStyleObsOrange = TextStyle(
 final kTextStyleDescriptionBlack = TextStyle(
   fontFamily: GoogleFonts.raleway().fontFamily,
   fontSize: 17,
-  color: Colors.black,
+  color: kBlack,
+  letterSpacing: 3,
+);
+final kTextStyleDescriptionWhite = TextStyle(
+  fontFamily: GoogleFonts.raleway().fontFamily,
+  fontSize: 17,
+  color: kWhite,
   letterSpacing: 3,
 );
 final kTextStyleDescriptionOrange = TextStyle(
@@ -146,7 +189,6 @@ final kTextStyleDescriptionOrange = TextStyle(
   color: kPrimaryColor,
   letterSpacing: 2,
 );
-
 
 final kTextProfileTitle = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
@@ -170,4 +212,15 @@ final kTextProfileSubTitleVertical = TextStyle(
   fontFamily: GoogleFonts.baloo2().fontFamily,
   fontSize: 18,
   color: Colors.black,
+);
+
+final kTextButtonTitle = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 21,
+  color: kWhite,
+);
+final kTextButtonTitleVertical = TextStyle(
+  fontFamily: GoogleFonts.baloo2().fontFamily,
+  fontSize: 19,
+  color: kWhite,
 );

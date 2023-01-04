@@ -2,35 +2,28 @@
 <html>
 
 <head>
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="INORA SOFTWARES.">
+  <meta name="description"
+    content="Desenvolvimento de softwares sob demanda. Sistemas personalizado de acordo com o seu negócio.">
 
-  <!-- Browser meta tags & icons -->
+  <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="inora">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>INORA</title>
+  <title>INORA SOFTWARES</title>
   <link rel="manifest" href="manifest.json">
 
-  <!-- Renderer specifier -->
   <script>
-    let searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has('renderer')) {
-      window.flutterWebRenderer = searchParams.get('renderer');
-      console.log(searchParams.get('renderer') + ' renderer requested in the URL');
-    } else {
-      window.flutterWebRenderer = 'html';
-      console.log('canvaskit renderer requested in the URL');
-    }
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
   </script>
-
+  <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 
   <!-- Google tag (gtag.js) -->
@@ -70,8 +63,8 @@
       }
 
       #cookie-notice.show {
-        animation-delay: .2s;
-        animation-duration: .5s;
+        animation-delay: .1s;
+        animation-duration: .2s;
         animation-fill-mode: forwards;
         animation-iteration-count: 1;
         animation-name: fadein;
@@ -184,7 +177,7 @@
       });
     }
 
-    //initCookieNotice();
+      //initCookieNotice();
   </script>
 
   <!-- Loading indicator -->
@@ -241,10 +234,11 @@
         }
       }
     </style>
-    <img src="icons/develop1.gif" alt="Loading indicator..." />
+    <img src="icons/develop1.gif" alt="Loading..." />
   </div>
   <script>
-    window.addEventListener('load', function () {
+    window.addEventListener('load', function (ev) {
+      // Download main.dart.js
       var loading = document.querySelector('#loading');
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
@@ -255,19 +249,14 @@
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
         loading.classList.add('init_done');
-        //const analytics = getAnalytics(app);
         return appRunner.runApp();
       }).then(function (app) {
-        // Wait a few milliseconds so users can see the "zoooom" animation
-        // before getting rid of the "loading" div.
         window.setTimeout(function () {
           loading.remove();
         }, 200);
       });
     });
   </script>
-
-  <!-- App -->
 </body>
 
 </html>

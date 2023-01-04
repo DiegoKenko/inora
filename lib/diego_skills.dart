@@ -34,21 +34,23 @@ class DiegoTabSkills extends StatelessWidget {
       ),
       child: RotatedBox(
         quarterTurns: 3,
-        child: Stack(
-          children: [
-            DiegoSkill(
-              responsiveHeight: responsiveHeight,
-              responsiveWidth: responsiveWidth,
-              ratioVertical: ratioVertical,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Icon(
-                Icons.arrow_drop_down,
-                size: ratioVertical ? 40 : 50,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              DiegoSkill(
+                responsiveHeight: responsiveHeight,
+                responsiveWidth: responsiveWidth,
+                ratioVertical: ratioVertical,
               ),
-            )
-          ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  size: ratioVertical ? 40 : 50,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
